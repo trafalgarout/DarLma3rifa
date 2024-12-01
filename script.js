@@ -9,14 +9,31 @@ function extractImageUrl(content) {
 async function fetchBlogPosts() {
     // Modified URL to get maximum posts (max-results=400)
     const rssUrl = 'https://9alamkom.blogspot.com/feeds/posts/default?alt=rss&max-results=400';
-    const corsProxy = 'https://api.allorigins.win/raw?url=';
+    const corsProxy = 'https://corsproxy.io/?';
     
     try {
         const response = await fetch(corsProxy + encodeURIComponent(rssUrl));
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const text = await response.text();
+        if (!text || text.trim() === '') {
+            throw new Error('Empty response received');
+        }
+        
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(text, 'text/xml');
+        
+        // Check if the XML is valid
+        const parserError = xmlDoc.querySelector('parsererror');
+        if (parserError) {
+            throw new Error('Invalid XML received');
+        }
+        
         const items = xmlDoc.getElementsByTagName('item');
+        if (!items || items.length === 0) {
+            throw new Error('No items found in the RSS feed');
+        }
         
         const posts = [];
         // Changed to get up to 400 posts
@@ -38,8 +55,11 @@ async function fetchBlogPosts() {
         
         return posts;
     } catch (error) {
-        console.error('Error fetching RSS feed:', error);
-        return [];
+        console.error('Error fetching RSS feed:', {
+            message: error.message,
+            stack: error.stack
+        });
+        throw error; // Re-throw to be handled by the calling function
     }
 }
 
@@ -70,11 +90,6 @@ async function createThumbnails() {
         const posts = await fetchBlogPosts();
         grid.innerHTML = ''; // Clear loading message
         
-        if (posts.length === 0) {
-            grid.innerHTML = '<div class="error">عذراً، لم نتمكن من تحميل المقالات</div>';
-            return;
-        }
-        
         posts.forEach((post, index) => {
             const thumbnail = document.createElement('div');
             thumbnail.className = 'thumbnail';
@@ -98,11 +113,33 @@ async function createThumbnails() {
         // Update the header with post count
         const header = document.querySelector('header p');
         header.textContent = `${posts.length} مقال متاح للقراءة من مدونة عالمكم`;
-        
     } catch (error) {
-        grid.innerHTML = '<div class="error">عذراً، حدث خطأ أثناء تحميل المقالات</div>';
-        console.error('Error:', error);
+        console.error('Error creating thumbnails:', error);
+        grid.innerHTML = `
+            <div class="error">
+                عذراً، حدث خطأ أثناء تحميل المقالات. 
+                <br>
+                <button onclick="createThumbnails()" class="retry-button">حاول مرة أخرى</button>
+            </div>
+        `;
     }
+}
+
+// Handle newsletter form submission
+function handleNewsletterSubmit(event) {
+    event.preventDefault();
+    const email = event.target.querySelector('input[type="email"]').value;
+    
+    // Here you would typically send this to your server
+    console.log('Newsletter subscription:', email);
+    
+    // Show success message
+    alert('شكراً لك على الاشتراك في نشرتنا البريدية!');
+    
+    // Clear the form
+    event.target.reset();
+    
+    return false;
 }
 
 // Initialize thumbnails when the page loads
