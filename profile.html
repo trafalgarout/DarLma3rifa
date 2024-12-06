@@ -1388,16 +1388,57 @@
     </style>
 
     <script>
+        // Initialize ads only once
+        let adsInitialized = false;
+
+        function initializeAds() {
+            if (adsInitialized) return;
+            try {
+                const adUnits = document.querySelectorAll('.adsbygoogle');
+                adUnits.forEach(unit => {
+                    if (!unit.hasAttribute('data-adsbygoogle-initialized')) {
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        unit.setAttribute('data-adsbygoogle-initialized', 'true');
+                    }
+                });
+                adsInitialized = true;
+            } catch (error) {
+                console.error('Error initializing ads:', error);
+            }
+        }
+
+        // Profile data arrays
+        const femaleNames = ['نور', 'سارة', 'ريم', 'مريم', 'فاطمة', 'عائشة', 'زينب', 'خديجة', 'أسماء', 'هدى'];
+        const cities = ['الرياض', 'جدة', 'مكة المكرمة', 'المدينة المنورة', 'الدمام', 'الخبر', 'تبوك', 'أبها'];
+        const jobs = ['طبيبة', 'مهندسة', 'معلمة', 'محاسبة', 'صيدلانية', 'مصممة', 'محامية', 'رائدة أعمال'];
+        const descriptions = [
+            'أبحث عن شريك حياة متفهم ومثقف',
+            'أتطلع لبناء أسرة سعيدة',
+            'أبحث عن شخص متدين وخلوق',
+            'أريد شريك حياة يشاركني طموحاتي'
+        ];
+        const hobbies = ['القراءة', 'السفر', 'الطبخ', 'الرياضة', 'التصوير', 'الرسم', 'العمل التطوعي', 'تعلم اللغات'];
+
         function generateProfile(id) {
-            return {
-                name: "سارة أحمد",
-                age: 28,
-                location: "الرياض، المملكة العربية السعودية",
-                occupation: "طبيبة",
-                education: "بكالوريوس طب",
-                about: "طبيبة متخصصة، أبحث عن شريك حياة متفهم ومثقف.",
-                interests: ["القراءة", "السفر", "الطب", "العمل التطوعي"]
+            const imageId = ((id - 1) % 44) + 1;
+            
+            const profile = {
+                id: id,
+                name: femaleNames[Math.floor(Math.random() * femaleNames.length)],
+                age: Math.floor(Math.random() * (35 - 20) + 20),
+                height: Math.floor(Math.random() * (175 - 155) + 155),
+                city: cities[Math.floor(Math.random() * cities.length)],
+                job: jobs[Math.floor(Math.random() * jobs.length)],
+                description: descriptions[Math.floor(Math.random() * descriptions.length)],
+                hobbies: hobbies.sort(() => 0.5 - Math.random()).slice(0, 3),
+                imageUrl: `pictures/image1 (${imageId}).webp`,
+                views: Math.floor(Math.random() * (5000000 - 2000000) + 2000000)
             };
+
+            // Store profile data
+            localStorage.setItem(`profile-${id}`, JSON.stringify(profile));
+            
+            return profile;
         }
 
         function loadProfile() {
@@ -1406,67 +1447,266 @@
                 const profileId = parseInt(urlParams.get('id')) || 1;
                 const profile = generateProfile(profileId);
 
+                // Update profile image
+                const profileImage = document.getElementById('profile-image');
+                if (profileImage) {
+                    profileImage.src = profile.imageUrl;
+                    profileImage.onerror = function() {
+                        this.src = 'pictures/image1 (1).webp';
+                    };
+                }
+
                 // Update profile information
                 document.getElementById('profile-name').textContent = profile.name;
                 document.getElementById('profile-age').textContent = `العمر: ${profile.age} سنة`;
-                document.getElementById('profile-location').textContent = profile.location;
-                document.getElementById('profile-occupation').textContent = profile.occupation;
-                document.getElementById('profile-education').textContent = profile.education;
-                document.getElementById('about-text').textContent = profile.about;
+                document.getElementById('profile-location').textContent = profile.city;
+                document.getElementById('profile-occupation').textContent = profile.job;
+                document.getElementById('about-text').textContent = profile.description;
 
                 // Update interests
                 const interestsList = document.getElementById('interests-list');
                 if (interestsList) {
-                    interestsList.innerHTML = profile.interests
-                        .map(interest => `<span class="hobby-tag">${interest}</span>`)
+                    interestsList.innerHTML = profile.hobbies
+                        .map(hobby => `<span class="hobby-tag">${hobby}</span>`)
                         .join('');
+                }
+
+                // Update view count
+                const viewCount = document.querySelector('.view-counter');
+                if (viewCount) {
+                    viewCount.innerHTML = `
+                        <i class="far fa-eye"></i>
+                        <span>${formatViewCount(profile.views)}</span>
+                        <span>مشاهدة</span>
+                    `;
                 }
             } catch (error) {
                 console.error('Error loading profile:', error);
             }
         }
 
-        function loadSuggestedProfiles() {
-            try {
-                const suggestedProfiles = [
-                    { name: "نورة محمد", age: 25, location: "جدة" },
-                    { name: "فاطمة علي", age: 27, location: "الدمام" },
-                    { name: "ريم عبدالله", age: 24, location: "مكة" }
-                ];
+        // Format view count
+        function formatViewCount(number) {
+            if (number >= 1000000) {
+                return (number / 1000000).toFixed(1) + 'M';
+            }
+            if (number >= 1000) {
+                return (number / 1000).toFixed(1) + 'K';
+            }
+            return number.toString();
+        }
 
-                const profilesGrid = document.querySelector('.profiles-grid');
-                if (profilesGrid) {
-                    profilesGrid.innerHTML = suggestedProfiles.map(profile => `
-                        <div class="profile-card">
-                            <img src="images/default-profile.jpg" alt="${profile.name}">
-                            <div class="profile-info">
-                                <h3>${profile.name}</h3>
-                                <p>${profile.age} سنة</p>
-                                <p><i class="fas fa-map-marker-alt"></i> ${profile.location}</p>
+        // Load suggested profiles
+        function loadSuggestedProfiles() {
+            const profilesGrid = document.querySelector('.profiles-grid');
+            const baseId = Math.floor(Math.random() * 1000) + 1;
+
+            for (let i = 0; i < 4; i++) {
+                const profile = generateProfile(baseId + i);
+                const profileCard = document.createElement('div');
+                profileCard.className = 'profile-card';
+                profileCard.innerHTML = `
+                    <a href="profile.html?id=${profile.id}" class="profile-link">
+                        <div class="profile-image">
+                            <img src="${profile.imageUrl}" alt="${profile.name}" onerror="this.src='pictures/image1 (1).webp'">
+                        </div>
+                        <div class="profile-info">
+                            <h3>${profile.name}</h3>
+                            <p><i class="fas fa-map-marker-alt"></i> ${profile.city}</p>
+                            <p><i class="fas fa-birthday-cake"></i> ${profile.age} سنة</p>
+                            <p><i class="fas fa-briefcase"></i> ${profile.job}</p>
+                            <div class="view-counter">
+                                <i class="far fa-eye"></i>
+                                <span>${formatViewCount(profile.views)}</span>
+                                <span> مشاهدة </span>
                             </div>
                         </div>
-                    `).join('');
-                }
-            } catch (error) {
-                console.error('Error loading suggested profiles:', error);
+                    </a>
+                `;
+                profilesGrid.appendChild(profileCard);
             }
         }
 
-        // Initialize when DOM is ready
+        // Share functionality
+        function shareProfile(platform) {
+            const url = window.location.href;
+            const text = "شاهد هذا الملف الشخصي على موقع زواج و تعارف";
+
+            let shareUrl = '';
+            switch (platform) {
+                case 'whatsapp':
+                    shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text + '\n' + url)}`;
+                    break;
+                case 'telegram':
+                    shareUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
+                    break;
+                case 'messenger':
+                    shareUrl = `https://www.facebook.com/dialog/send?link=${encodeURIComponent(url)}&app_id=YOUR_FACEBOOK_APP_ID&redirect_uri=${encodeURIComponent(url)}`;
+                    break;
+            }
+
+            if (shareUrl) {
+                window.open(shareUrl, '_blank');
+                updateShareCount(platform);
+            }
+        }
+
+        // Copy profile link
+        function copyProfileLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                const copyButton = document.querySelector('.share-copy');
+                copyButton.innerHTML = '<i class="fas fa-check"></i> تم النسخ';
+                copyButton.classList.add('copied');
+
+                setTimeout(() => {
+                    copyButton.innerHTML = '<i class="fas fa-link"></i> نسخ الرابط';
+                    copyButton.classList.remove('copied');
+                }, 2000);
+
+                updateShareCount('link');
+            });
+        }
+
+        // Update share count
+        function updateShareCount(platform) {
+            const statItem = document.querySelector(`.share-stat-item i.fa-${platform}`).parentElement;
+            const countElement = statItem.querySelector('.share-count');
+            let count = parseInt(countElement.textContent);
+            count++;
+            countElement.textContent = count;
+        }
+
+        // Mobile menu toggle
         document.addEventListener('DOMContentLoaded', function() {
-            loadProfile();
-            loadSuggestedProfiles();
+            const navbarToggle = document.querySelector('.navbar-toggle');
+            const navLinks = document.querySelector('.nav-links');
             
-            // Initialize ads
-            try {
-                const adUnits = document.querySelectorAll('.adsbygoogle');
-                adUnits.forEach(unit => {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
+            if (navbarToggle && navLinks) {
+                navbarToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
                 });
-            } catch (error) {
-                console.error('Error initializing ads:', error);
+
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.navbar-toggle') && !event.target.closest('.nav-links')) {
+                        navLinks.classList.remove('active');
+                    }
+                });
             }
         });
+
+        // Form handling function
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                message: document.getElementById('message').value
+            };
+
+            const formMessage = document.getElementById('formMessage');
+            
+            // Validate phone number
+            const phoneRegex = /^[0-9]{10}$/;
+            if (!phoneRegex.test(formData.phone)) {
+                formMessage.textContent = 'الرجاء إدخال رقم هاتف صحيح مكون من 10 أرقام';
+                formMessage.className = 'form-message error';
+                return;
+            }
+
+            // Show loading state
+            const submitBtn = event.target.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'جاري الإرسال...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                formMessage.textContent = 'تم إرسال رسالتك بنجاح! سنتواصل معك قريباً';
+                formMessage.className = 'form-message success';
+                
+                // Reset form and button
+                document.getElementById('messageForm').reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+                // Clear success message after 5 seconds
+                setTimeout(() => {
+                    formMessage.style.display = 'none';
+                }, 5000);
+            }, 1000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            loadProfile();
+            loadSuggestedProfiles();
+
+            // Add share button event listeners
+            document.querySelector('.share-whatsapp').addEventListener('click', () => shareProfile('whatsapp'));
+            document.querySelector('.share-telegram').addEventListener('click', () => shareProfile('telegram'));
+            document.querySelector('.share-messenger').addEventListener('click', () => shareProfile('messenger'));
+            document.querySelector('.share-copy').addEventListener('click', copyProfileLink);
+        });
+
+        // Get profile ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const profileId = urlParams.get('id');
+
+        if (profileId) {
+            // Calculate the exact same image number as in index.html
+            const imageNumber = ((parseInt(profileId) - 1) % 44) + 1;
+            
+            // Get stored profile data
+            const profileData = localStorage.getItem(`profile-${profileId}`);
+            
+            if (profileData) {
+                const profile = JSON.parse(profileData);
+                
+                // Update main profile image
+                const mainImage = document.querySelector('.profile-image-container img');
+                if (mainImage) {
+                    mainImage.src = `pictures/image1 (${imageNumber}).webp`;
+                    mainImage.onerror = function() {
+                        this.src = 'pictures/image1 (1).webp';
+                    };
+                }
+
+                // Update other profile information
+                document.querySelector('.profile-info').innerHTML = `
+                    <h1>${profile.name}</h1>
+                    <div class="basic-info">
+                        <p><i class="fas fa-birthday-cake"></i> ${profile.age} سنة</p>
+                        <p><i class="fas fa-ruler-vertical"></i> ${profile.height} سم</p>
+                        <p><i class="fas fa-map-marker-alt"></i> ${profile.city}</p>
+                        <p><i class="fas fa-briefcase"></i> ${profile.job}</p>
+                    </div>
+                `;
+                
+                // Update view count
+                const viewCount = document.querySelector('.view-counter');
+                if (viewCount) {
+                    viewCount.innerHTML = `
+                        <i class="far fa-eye"></i>
+                        <span>${formatViewCount(profile.views)}</span>
+                        <span>مشاهدة</span>
+                    `;
+                }
+            }
+        }
+
+        // Function to format view count (same as in index.html)
+        function formatViewCount(number) {
+            if (number >= 1000000) {
+                return (number / 1000000).toFixed(1) + 'M';
+            }
+            if (number >= 1000) {
+                return (number / 1000).toFixed(1) + 'K';
+            }
+            return number.toString();
+        }
     </script>
     
 </head>
@@ -1716,319 +1956,5 @@
         </div>
     </footer>
 
-    <script>
-        // Profile data arrays
-        const femaleNames = ['نور', 'سارة', 'ريم', 'مريم', 'فاطمة', 'عائشة', 'زينب', 'خديجة', 'أسماء', 'هدى'];
-        const cities = ['الرياض', 'جدة', 'مكة المكرمة', 'المدينة المنورة', 'الدمام', 'الخبر', 'تبوك', 'أبها'];
-        const jobs = ['طبيبة', 'مهندسة', 'معلمة', 'محاسبة', 'صيدلانية', 'مصممة', 'محامية', 'رائدة أعمال'];
-        const hobbies = ['القراءة', 'الطبخ', 'السفر', 'التصوير', 'الرسم', 'العمل التطوعي', 'الخياطة', 'الكتابة'];
-        const descriptions = [
-            'أنا شخصية طموحة ومثقفة، حاصلة على درجة عالية في التعليم وأسعى دائماً للتطور في مجال عملي. أؤمن بأهمية التوازن بين الحياة المهنية والشخصية. أحب القراءة والسفر واكتشاف ثقافات جديدة.',
-            'كشخصية متدينة وملتزمة، أضع الأخلاق والقيم الإسلامية في مقدمة أولوياتي. حاصلة على تعليم جامعي وأعمل في مجال يمكنني من خدمة المجتمع. أهتم كثيراً بالعمل التطوعي والمشاركة في الأنشطة الخيرية.',
-            'أنا فتاة عصرية ومنفتحة، أجمع بين الأصالة والحداثة. حاصلة على شهادات مهنية متقدمة وأعمل في مجال التكنولوجيا. شغوفة بالابتكار والإبداع، وأسعى دائماً لتطوير مهاراتي.'
-        ];
-
-        // Generate profile
-        function generateProfile(id) {
-            const imageId = ((id - 1) % 44) + 1;
-            return {
-                id: id,
-                name: femaleNames[Math.floor(Math.random() * femaleNames.length)],
-                age: Math.floor(Math.random() * (35 - 20) + 20),
-                height: Math.floor(Math.random() * (175 - 155) + 155),
-                city: cities[Math.floor(Math.random() * cities.length)],
-                job: jobs[Math.floor(Math.random() * jobs.length)],
-                description: descriptions[Math.floor(Math.random() * descriptions.length)],
-                hobbies: hobbies.sort(() => 0.5 - Math.random()).slice(0, 3),
-                imageUrl: `pictures/image1 (${imageId}).webp`,
-                views: Math.floor(Math.random() * (5000000 - 2000000) + 2000000)
-            };
-        }
-
-        // Load profile
-        function loadProfile() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const profileId = parseInt(urlParams.get('id')) || 1;
-            const profile = generateProfile(profileId);
-
-            // Update profile image
-            document.querySelector('.profile-image-container').innerHTML = `
-                <img src="${profile.imageUrl}" alt="${profile.name}" onerror="this.src='pictures/image1 (1).webp'">
-            `;
-
-            // Update profile info
-            document.querySelector('.profile-info').innerHTML = `
-                <h1>${profile.name}</h1>
-                <div class="basic-info">
-                    <p><i class="fas fa-birthday-cake"></i> ${profile.age} سنة</p>
-                    <p><i class="fas fa-ruler-vertical"></i> ${profile.height} سم</p>
-                    <p><i class="fas fa-map-marker-alt"></i> ${profile.city}</p>
-                    <p><i class="fas fa-briefcase"></i> ${profile.job}</p>
-                </div>
-            `;
-
-            // Update personal info
-            document.querySelector('.info-section:nth-child(1)').innerHTML += `
-                <div class="info-items">
-                    <div class="info-item">
-                        <i class="fas fa-birthday-cake"></i>
-                        <span>${profile.age} سنة</span>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-ruler-vertical"></i>
-                        <span>${profile.height} سم</span>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>${profile.city}</span>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-briefcase"></i>
-                        <span>${profile.job}</span>
-                    </div>
-                </div>
-            `;
-
-            // Update bio
-            document.querySelector('.info-section:nth-child(2)').innerHTML += `
-                <p>${profile.description}</p>
-            `;
-
-            // Update hobbies
-            document.querySelector('.hobbies-list').innerHTML = profile.hobbies.map(hobby => `
-                <span class="hobby-tag">
-                    <i class="fas fa-heart"></i>
-                    ${hobby}
-                </span>
-            `).join('');
-
-            // Update view counter
-            document.querySelector('.view-counter').innerHTML = `
-                <i class="far fa-eye"></i>
-                <span>${formatViewCount(profile.views)}</span>
-                <span>مشاهدة</span>
-            `;
-
-            // Update page title
-            document.title = `${profile.name} - الملف الشخصي`;
-        }
-
-        // Format view count
-        function formatViewCount(number) {
-            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
-
-        // Load suggested profiles
-        function loadSuggestedProfiles() {
-            const profilesGrid = document.querySelector('.profiles-grid');
-            const baseId = Math.floor(Math.random() * 1000) + 1;
-
-            for (let i = 0; i < 4; i++) {
-                const profile = generateProfile(baseId + i);
-                const profileCard = document.createElement('div');
-                profileCard.className = 'profile-card';
-                profileCard.innerHTML = `
-                    <a href="profile.html?id=${profile.id}" class="profile-link">
-                        <div class="profile-image">
-                            <img src="${profile.imageUrl}" alt="${profile.name}" onerror="this.src='pictures/image1 (1).webp'">
-                        </div>
-                        <div class="profile-info">
-                            <h3>${profile.name}</h3>
-                            <p><i class="fas fa-map-marker-alt"></i> ${profile.city}</p>
-                            <p><i class="fas fa-birthday-cake"></i> ${profile.age} سنة</p>
-                            <p><i class="fas fa-briefcase"></i> ${profile.job}</p>
-                            <div class="view-counter">
-                                <i class="far fa-eye"></i>
-                                <span>${formatViewCount(profile.views)}</span>
-                                <span> مشاهدة </span>
-                            </div>
-                        </div>
-                    </a>
-                `;
-                profilesGrid.appendChild(profileCard);
-            }
-        }
-
-        // Share functionality
-        function shareProfile(platform) {
-            const url = window.location.href;
-            const text = "شاهد هذا الملف الشخصي على موقع زواج و تعارف";
-
-            let shareUrl = '';
-            switch (platform) {
-                case 'whatsapp':
-                    shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text + '\n' + url)}`;
-                    break;
-                case 'telegram':
-                    shareUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
-                    break;
-                case 'messenger':
-                    shareUrl = `https://www.facebook.com/dialog/send?link=${encodeURIComponent(url)}&app_id=YOUR_FACEBOOK_APP_ID&redirect_uri=${encodeURIComponent(url)}`;
-                    break;
-            }
-
-            if (shareUrl) {
-                window.open(shareUrl, '_blank');
-                updateShareCount(platform);
-            }
-        }
-
-        // Copy profile link
-        function copyProfileLink() {
-            const url = window.location.href;
-            navigator.clipboard.writeText(url).then(() => {
-                const copyButton = document.querySelector('.share-copy');
-                copyButton.innerHTML = '<i class="fas fa-check"></i> تم النسخ';
-                copyButton.classList.add('copied');
-
-                setTimeout(() => {
-                    copyButton.innerHTML = '<i class="fas fa-link"></i> نسخ الرابط';
-                    copyButton.classList.remove('copied');
-                }, 2000);
-
-                updateShareCount('link');
-            });
-        }
-
-        // Update share count
-        function updateShareCount(platform) {
-            const statItem = document.querySelector(`.share-stat-item i.fa-${platform}`).parentElement;
-            const countElement = statItem.querySelector('.share-count');
-            let count = parseInt(countElement.textContent);
-            count++;
-            countElement.textContent = count;
-        }
-
-        // Mobile menu toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const navbarToggle = document.querySelector('.navbar-toggle');
-            const navLinks = document.querySelector('.nav-links');
-            
-            if (navbarToggle && navLinks) {
-                navbarToggle.addEventListener('click', function() {
-                    navLinks.classList.toggle('active');
-                });
-
-                // Close menu when clicking outside
-                document.addEventListener('click', function(event) {
-                    if (!event.target.closest('.navbar-toggle') && !event.target.closest('.nav-links')) {
-                        navLinks.classList.remove('active');
-                    }
-                });
-            }
-        });
-
-        // Form handling function
-        function handleSubmit(event) {
-            event.preventDefault();
-            
-            const formData = {
-                name: document.getElementById('name').value,
-                phone: document.getElementById('phone').value,
-                message: document.getElementById('message').value
-            };
-
-            const formMessage = document.getElementById('formMessage');
-            
-            // Validate phone number
-            const phoneRegex = /^[0-9]{10}$/;
-            if (!phoneRegex.test(formData.phone)) {
-                formMessage.textContent = 'الرجاء إدخال رقم هاتف صحيح مكون من 10 أرقام';
-                formMessage.className = 'form-message error';
-                return;
-            }
-
-            // Show loading state
-            const submitBtn = event.target.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'جاري الإرسال...';
-            submitBtn.disabled = true;
-            
-            // Simulate form submission
-            setTimeout(() => {
-                formMessage.textContent = 'تم إرسال رسالتك بنجاح! سنتواصل معك قريباً';
-                formMessage.className = 'form-message success';
-                
-                // Reset form and button
-                document.getElementById('messageForm').reset();
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                
-                // Clear success message after 5 seconds
-                setTimeout(() => {
-                    formMessage.style.display = 'none';
-                }, 5000);
-            }, 1000);
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function () {
-            loadProfile();
-            loadSuggestedProfiles();
-
-            // Add share button event listeners
-            document.querySelector('.share-whatsapp').addEventListener('click', () => shareProfile('whatsapp'));
-            document.querySelector('.share-telegram').addEventListener('click', () => shareProfile('telegram'));
-            document.querySelector('.share-messenger').addEventListener('click', () => shareProfile('messenger'));
-            document.querySelector('.share-copy').addEventListener('click', copyProfileLink);
-        });
-
-        // Get profile ID from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const profileId = urlParams.get('id');
-
-        if (profileId) {
-            // Calculate the exact same image number as in index.html
-            const imageNumber = ((parseInt(profileId) - 1) % 44) + 1;
-            
-            // Get stored profile data
-            const profileData = localStorage.getItem(`profile-${profileId}`);
-            
-            if (profileData) {
-                const profile = JSON.parse(profileData);
-                
-                // Update main profile image
-                const mainImage = document.querySelector('.profile-image-container img');
-                if (mainImage) {
-                    mainImage.src = `pictures/image1 (${imageNumber}).webp`;
-                    mainImage.onerror = function() {
-                        this.src = 'pictures/image1 (1).webp';
-                    };
-                }
-
-                // Update other profile information
-                document.querySelector('.profile-info').innerHTML = `
-                    <h1>${profile.name}</h1>
-                    <div class="basic-info">
-                        <p><i class="fas fa-birthday-cake"></i> ${profile.age} سنة</p>
-                        <p><i class="fas fa-ruler-vertical"></i> ${profile.height} سم</p>
-                        <p><i class="fas fa-map-marker-alt"></i> ${profile.city}</p>
-                        <p><i class="fas fa-briefcase"></i> ${profile.job}</p>
-                    </div>
-                `;
-                
-                // Update view count
-                const viewCount = document.querySelector('.view-counter');
-                if (viewCount) {
-                    viewCount.innerHTML = `
-                        <i class="far fa-eye"></i>
-                        <span>${formatViewCount(profile.views)}</span>
-                        <span>مشاهدة</span>
-                    `;
-                }
-            }
-        }
-
-        // Function to format view count (same as in index.html)
-        function formatViewCount(number) {
-            if (number >= 1000000) {
-                return (number / 1000000).toFixed(1) + 'M';
-            }
-            if (number >= 1000) {
-                return (number / 1000).toFixed(1) + 'K';
-            }
-            return number.toString();
-        }
-    </script>
 </body>
 </html>
