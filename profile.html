@@ -1389,6 +1389,27 @@
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6865939387108271" crossorigin="anonymous"></script>
     </style>
+
+<script>
+        // Initialize the Privacy Sandbox API
+        (function(win) {
+            if (win.navigation && win.navigation.addEventListener) {
+                win.navigation.addEventListener('navigate', () => {
+                    // Push ads on navigation
+                    (adsbygoogle = win.adsbygoogle || []).push({});
+                });
+            }
+            // Check for Privacy Sandbox APIs
+            if (win.chrome && win.chrome.privacySandbox) {
+                win.chrome.privacySandbox.addEventListener('statechange', (e) => {
+                    const state = e.state;
+                    const enabled = state === 'enabled';
+                    console.log('Privacy Sandbox state:', state);
+                });
+            }
+        })(window);
+    </script>
+    
 </head>
 <body>
     <header>
