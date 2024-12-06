@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6865939387108271" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6865939387108271"
+     crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="منصة زواج وتعارف إلكترونية تتيح لك فرصة البحث عن شريك حياتك بسهولة وأمان. نقدم خدمات تعارف وزواج شرعي للعرب والمسلمين حول العالم. انضم الآن وابدأ رحلتك نحو حياة زوجية سعيدة.">
@@ -1237,137 +1238,93 @@
             }
         }
 
-        /* Add message form styles */
-        .message-section {
-            background: #fff;
-            padding: 3rem 2rem;
-            margin: 2rem auto;
-            max-width: 800px;
+        /* Add achievements and milestones section */
+        .achievements-section {
+            padding: 2rem;
+            background: white;
             border-radius: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 2rem 0;
         }
 
-        .message-section h2 {
-            color: var(--primary-color);
-            text-align: center;
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-        }
-
-        .message-section .notification {
-            text-align: center;
-            color: #666;
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-
-        .message-section .notification i {
-            color: var(--primary-color);
-            margin-left: 0.5rem;
-        }
-
-        .message-form {
-            display: flex;
-            flex-direction: column;
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
-            max-width: 600px;
-            margin: 0 auto;
+            margin: 2rem 0;
         }
 
-        .form-group {
+        .achievement-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .achievement-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            border-radius: 50%;
             display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
         }
 
-        .form-group label {
-            color: #333;
-            font-weight: bold;
-            font-size: 1.1rem;
+        .achievement-icon i {
+            font-size: 24px;
+            color: white;
         }
 
-        .form-group input,
-        .form-group textarea {
-            padding: 0.8rem 1rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-            direction: rtl;
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: var(--primary-color);
-            outline: none;
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 20px;
+            height: 100%;
+            width: 2px;
+            background: var(--primary-color);
         }
 
-        .form-group textarea {
-            min-height: 150px;
-            resize: vertical;
+        .timeline-item {
+            margin-bottom: 2rem;
+            position: relative;
+            padding-right: 3rem;
         }
 
-        .submit-btn {
+        .timeline-date {
+            position: absolute;
+            right: -10px;
             background: var(--primary-color);
             color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
         }
 
-        .submit-btn:hover {
-            background: var(--primary-color-dark);
-            transform: translateY(-2px);
-        }
-
-        .form-message {
-            text-align: center;
+        .timeline-content {
+            background: #f8f9fa;
             padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            display: none;
-        }
-
-        .form-message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-            display: block;
-        }
-
-        .form-message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-            display: block;
+            border-radius: 10px;
+            margin-right: 1rem;
         }
 
         @media (max-width: 768px) {
-            .message-section {
-                padding: 2rem 1rem;
-                margin: 1rem;
-            }
-
-            .message-section h2 {
-                font-size: 1.5rem;
-            }
-
-            .form-group input,
-            .form-group textarea {
-                font-size: 1rem;
-            }
-
-            .submit-btn {
-                width: 100%;
+            .achievements-grid {
+                grid-template-columns: 1fr;
             }
         }
-
-       
 
         /* Ad Container Styles */
         .ad-container {
@@ -1385,44 +1342,452 @@
                 min-height: 50px;
             }
         }
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6865939387108271" crossorigin="anonymous"></script>
     </style>
 
-    <script>
-        // Initialize ads only once
-        let adsInitialized = false;
-
-        function initializeAds() {
-            if (adsInitialized) return;
-            try {
-                const adUnits = document.querySelectorAll('.adsbygoogle');
-                adUnits.forEach(unit => {
-                    if (!unit.hasAttribute('data-adsbygoogle-initialized')) {
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                        unit.setAttribute('data-adsbygoogle-initialized', 'true');
-                    }
+<script>
+        // Initialize the Privacy Sandbox API
+        (function(win) {
+            if (win.navigation && win.navigation.addEventListener) {
+                win.navigation.addEventListener('navigate', () => {
+                    // Push ads on navigation
+                    (adsbygoogle = win.adsbygoogle || []).push({});
                 });
-                adsInitialized = true;
-            } catch (error) {
-                console.error('Error initializing ads:', error);
             }
+            // Check for Privacy Sandbox APIs
+            if (win.chrome && win.chrome.privacySandbox) {
+                win.chrome.privacySandbox.addEventListener('statechange', (e) => {
+                    const state = e.state;
+                    const enabled = state === 'enabled';
+                    console.log('Privacy Sandbox state:', state);
+                });
+            }
+        })(window);
+    </script>
+    
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="brand">
+                <a href="index.html">دار المعرفة للزواج</a>
+            </div>
+            <button class="navbar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <a href="index.html">الرئيسية</a>
+                <a href="#">البحث</a>
+                <a href="#">الملفات الشخصية</a>
+                <a href="about-us.html" target="_blank">من نحن</a>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <a href="index.html" class="back-button">
+            <i class="fas fa-arrow-right"></i>
+            العودة للرئيسية
+        </a>
+
+        <!-- Ad Space 1 - Top -->
+        
+            <p>مساحة إعلانية</p>
+         
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6865939387108271"
+     crossorigin="anonymous"></script>
+<!-- TOP BANNER DAR -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6865939387108271"
+     data-ad-slot="3668871632"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-image-container">
+                    <!-- Profile image will be loaded here -->
+                </div>
+                <div class="profile-info">
+                    <!-- Profile info will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Strategic Ad 1: After Profile Header -->
+            <div class="ad-container">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-6865939387108271"
+                     data-ad-slot="your-ad-slot-id"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <div class="profile-details">
+                <!-- Ad space before profile details -->
+                <div class="ad-container">
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-6865939387108271"
+                         data-ad-slot="your-ad-slot-id"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                <div class="info-section">
+                    <h2>المعلومات الشخصية</h2>
+                    <!-- Personal info will be loaded here -->
+                </div>
+
+                <div class="info-section">
+                    <h2>نبذة شخصية</h2>
+                    <!-- Bio will be loaded here -->
+                </div>
+
+                <div class="info-section">
+                    <h2>الهوايات والاهتمامات</h2>
+                    <div class="hobbies-list">
+                        <!-- Hobbies will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-actions">
+                <button class="action-button like-button">
+                    <i class="fas fa-heart"></i> إعجاب
+                </button>
+                <button class="action-button message-button">
+                    <i class="fas fa-comment"></i> مراسلة
+                </button>
+            </div>
+
+            <div class="share-buttons">
+                <a href="#" class="share-button share-whatsapp" onclick="shareProfile('whatsapp')">
+                    <i class="fab fa-whatsapp"></i>
+                    واتساب
+                </a>
+                <a href="#" class="share-button share-telegram" onclick="shareProfile('telegram')">
+                    <i class="fab fa-telegram-plane"></i>
+                    تليجرام
+                </a>
+                <a href="#" class="share-button share-messenger" onclick="shareProfile('messenger')">
+                    <i class="fab fa-facebook-messenger"></i>
+                    ماسنجر
+                </a>
+                <a href="#" class="share-button share-copy" onclick="copyProfileLink()">
+                    <i class="fas fa-link"></i>
+                    نسخ الرابط
+                </a>
+            </div>
+
+            <div class="share-stats">
+                <div class="share-stat-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <div class="share-count">484</div>
+                    <div class="share-label">مشاركة عبر واتساب</div>
+                </div>
+                <div class="share-stat-item">
+                    <i class="fab fa-telegram-plane"></i>
+                    <div class="share-count">378</div>
+                    <div class="share-label">مشاركة عبر تليجرام</div>
+                </div>
+                <div class="share-stat-item">
+                    <i class="fab fa-facebook-messenger"></i>
+                    <div class="share-count">334</div>
+                    <div class="share-label">مشاركة عبر ماسنجر</div>
+                </div>
+                <div class="share-stat-item">
+                    <i class="fas fa-link"></i>
+                    <div class="share-count">289</div>
+                    <div class="share-label">نسخ الرابط</div>
+                </div>
+            </div>
+
+            <div class="view-counter">
+                <!-- View counter will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Strategic Ad 2: Before Suggested Profiles -->
+                    <p>مساحة إعلانية متميزة</p>
+
+       <div class="ad-container">
+           <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6865939387108271"
+     crossorigin="anonymous"></script>
+<!-- SQURAE DAR -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6865939387108271"
+     data-ad-slot="2495492397"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        </div>
+
+        <!-- Suggested Profiles Section -->
+        <div id="suggested-profiles" class="suggested-profiles">
+            <h2>ملفات شخصية مقترحة</h2>
+            <div class="profiles-grid">
+                <!-- Profile cards will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Ad Space 3 -->
+
+         <p>مساحة إعلانية</p>
+<div class="ad-container">
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6865939387108271"
+     crossorigin="anonymous"></script>
+<!-- DAR INDEX -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6865939387108271"
+     data-ad-slot="5117684674"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        
+        
+    </div>
+
+    <!-- Add achievements and milestones section -->
+    <section class="achievements-section">
+        <!-- Ad space before achievements -->
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-6865939387108271"
+                 data-ad-slot="your-ad-slot-id"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        <h2>الإنجازات والمعالم</h2>
+        <div class="achievements-grid">
+            <div class="achievement-card" data-aos="fade-up">
+                <div class="achievement-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>عضو نشط</h3>
+                <p>مشارك فعال في المجتمع</p>
+            </div>
+            <div class="achievement-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="achievement-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>محبوب</h3>
+                <p>حصل على تفاعل إيجابي من المستخدمين</p>
+            </div>
+            <div class="achievement-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="achievement-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h3>موثوق</h3>
+                <p>حساب مؤكد وموثوق به</p>
+            </div>
+        </div>
+        <div class="milestones">
+            <h3>المعالم الرئيسية</h3>
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-date">2023</div>
+                    <div class="timeline-content">
+                        <h4>انضم إلى المنصة</h4>
+                        <p>بداية رحلة جديدة</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
+                    <div class="timeline-date">2024</div>
+                    <div class="timeline-content">
+                        <h4>تطور الملف الشخصي</h4>
+                        <p>إكمال جميع المعلومات المطلوبة</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .achievements-section {
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 2rem 0;
         }
 
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .achievement-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .achievement-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .achievement-icon i {
+            font-size: 24px;
+            color: white;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 20px;
+            height: 100%;
+            width: 2px;
+            background: var(--primary-color);
+        }
+
+        .timeline-item {
+            margin-bottom: 2rem;
+            position: relative;
+            padding-right: 3rem;
+        }
+
+        .timeline-date {
+            position: absolute;
+            right: -10px;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .timeline-content {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-right: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+        });
+    </script>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>استكشف</h3>
+                <ul>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="#">البحث</a></li>
+                    <li><a href="#">الملفات الشخصية</a></li>
+                    <li><a href="about-us.html" target="_blank">من نحن</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>نظرة عامة</h3>
+                <ul>
+                    <li><a href="about.html" target="_blank">حول الموقع</a></li>
+                    <li><a href="privacy.html" target="_blank">سياسة الخصوصية</a></li>
+                    <li><a href="terms.html" target="_blank">الشروط والأحكام</a></li>
+                    <li><a href="contact.html" target="_blank">اتصل بنا</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>المجتمع</h3>
+                <ul>
+                    <li><a href="#">مركز المساعدة</a></li>
+                    <li><a href="#">الدعم الفني</a></li>
+                    <li><a href="faq.html" target="_blank">الأسئلة الشائعة</a></li>
+                    <li><a href="#">النصائح والإرشادات</a></li>
+                </ul>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>تطبيق الجوال</h3>
+                <p>حمل التطبيق الآن</p>
+                <div class="app-downloads">
+                    <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store"></a>
+                    <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Play Store"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>جميع الحقوق محفوظة 2024 زواج و تعارف</p>
+        </div>
+    </footer>
+
+    <script>
         // Profile data arrays
         const femaleNames = ['نور', 'سارة', 'ريم', 'مريم', 'فاطمة', 'عائشة', 'زينب', 'خديجة', 'أسماء', 'هدى'];
         const cities = ['الرياض', 'جدة', 'مكة المكرمة', 'المدينة المنورة', 'الدمام', 'الخبر', 'تبوك', 'أبها'];
         const jobs = ['طبيبة', 'مهندسة', 'معلمة', 'محاسبة', 'صيدلانية', 'مصممة', 'محامية', 'رائدة أعمال'];
+        const hobbies = ['القراءة', 'الطبخ', 'السفر', 'التصوير', 'الرسم', 'العمل التطوعي', 'الخياطة', 'الكتابة'];
         const descriptions = [
-            'أبحث عن شريك حياة متفهم ومثقف',
-            'أتطلع لبناء أسرة سعيدة',
-            'أبحث عن شخص متدين وخلوق',
-            'أريد شريك حياة يشاركني طموحاتي'
+            'أنا شخصية طموحة ومثقفة، حاصلة على درجة عالية في التعليم وأسعى دائماً للتطور في مجال عملي. أؤمن بأهمية التوازن بين الحياة المهنية والشخصية. أحب القراءة والسفر واكتشاف ثقافات جديدة.',
+            'كشخصية متدينة وملتزمة، أضع الأخلاق والقيم الإسلامية في مقدمة أولوياتي. حاصلة على تعليم جامعي وأعمل في مجال يمكنني من خدمة المجتمع. أهتم كثيراً بالعمل التطوعي والمشاركة في الأنشطة الخيرية.',
+            'أنا فتاة عصرية ومنفتحة، أجمع بين الأصالة والحداثة. حاصلة على شهادات مهنية متقدمة وأعمل في مجال التكنولوجيا. شغوفة بالابتكار والإبداع، وأسعى دائماً لتطوير مهاراتي.'
         ];
-        const hobbies = ['القراءة', 'السفر', 'الطبخ', 'الرياضة', 'التصوير', 'الرسم', 'العمل التطوعي', 'تعلم اللغات'];
 
+        // Generate profile
         function generateProfile(id) {
             const imageId = ((id - 1) % 44) + 1;
-            
-            const profile = {
+            return {
                 id: id,
                 name: femaleNames[Math.floor(Math.random() * femaleNames.length)],
                 age: Math.floor(Math.random() * (35 - 20) + 20),
@@ -1434,66 +1799,79 @@
                 imageUrl: `pictures/image1 (${imageId}).webp`,
                 views: Math.floor(Math.random() * (5000000 - 2000000) + 2000000)
             };
-
-            // Store profile data
-            localStorage.setItem(`profile-${id}`, JSON.stringify(profile));
-            
-            return profile;
         }
 
+        // Load profile
         function loadProfile() {
-            try {
-                const urlParams = new URLSearchParams(window.location.search);
-                const profileId = parseInt(urlParams.get('id')) || 1;
-                const profile = generateProfile(profileId);
+            const urlParams = new URLSearchParams(window.location.search);
+            const profileId = parseInt(urlParams.get('id')) || 1;
+            const profile = generateProfile(profileId);
 
-                // Update profile image
-                const profileImage = document.getElementById('profile-image');
-                if (profileImage) {
-                    profileImage.src = profile.imageUrl;
-                    profileImage.onerror = function() {
-                        this.src = 'pictures/image1 (1).webp';
-                    };
-                }
+            // Update profile image
+            document.querySelector('.profile-image-container').innerHTML = `
+                <img src="${profile.imageUrl}" alt="${profile.name}" onerror="this.src='pictures/image1 (1).webp'">
+            `;
 
-                // Update profile information
-                document.getElementById('profile-name').textContent = profile.name;
-                document.getElementById('profile-age').textContent = `العمر: ${profile.age} سنة`;
-                document.getElementById('profile-location').textContent = profile.city;
-                document.getElementById('profile-occupation').textContent = profile.job;
-                document.getElementById('about-text').textContent = profile.description;
+            // Update profile info
+            document.querySelector('.profile-info').innerHTML = `
+                <h1>${profile.name}</h1>
+                <div class="basic-info">
+                    <p><i class="fas fa-birthday-cake"></i> ${profile.age} سنة</p>
+                    <p><i class="fas fa-ruler-vertical"></i> ${profile.height} سم</p>
+                    <p><i class="fas fa-map-marker-alt"></i> ${profile.city}</p>
+                    <p><i class="fas fa-briefcase"></i> ${profile.job}</p>
+                </div>
+            `;
 
-                // Update interests
-                const interestsList = document.getElementById('interests-list');
-                if (interestsList) {
-                    interestsList.innerHTML = profile.hobbies
-                        .map(hobby => `<span class="hobby-tag">${hobby}</span>`)
-                        .join('');
-                }
+            // Update personal info
+            document.querySelector('.info-section:nth-child(1)').innerHTML += `
+                <div class="info-items">
+                    <div class="info-item">
+                        <i class="fas fa-birthday-cake"></i>
+                        <span>${profile.age} سنة</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-ruler-vertical"></i>
+                        <span>${profile.height} سم</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>${profile.city}</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>${profile.job}</span>
+                    </div>
+                </div>
+            `;
 
-                // Update view count
-                const viewCount = document.querySelector('.view-counter');
-                if (viewCount) {
-                    viewCount.innerHTML = `
-                        <i class="far fa-eye"></i>
-                        <span>${formatViewCount(profile.views)}</span>
-                        <span>مشاهدة</span>
-                    `;
-                }
-            } catch (error) {
-                console.error('Error loading profile:', error);
-            }
+            // Update bio
+            document.querySelector('.info-section:nth-child(2)').innerHTML += `
+                <p>${profile.description}</p>
+            `;
+
+            // Update hobbies
+            document.querySelector('.hobbies-list').innerHTML = profile.hobbies.map(hobby => `
+                <span class="hobby-tag">
+                    <i class="fas fa-heart"></i>
+                    ${hobby}
+                </span>
+            `).join('');
+
+            // Update view counter
+            document.querySelector('.view-counter').innerHTML = `
+                <i class="far fa-eye"></i>
+                <span>${formatViewCount(profile.views)}</span>
+                <span>مشاهدة</span>
+            `;
+
+            // Update page title
+            document.title = `${profile.name} - الملف الشخصي`;
         }
 
         // Format view count
         function formatViewCount(number) {
-            if (number >= 1000000) {
-                return (number / 1000000).toFixed(1) + 'M';
-            }
-            if (number >= 1000) {
-                return (number / 1000).toFixed(1) + 'K';
-            }
-            return number.toString();
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
         // Load suggested profiles
@@ -1596,49 +1974,6 @@
             }
         });
 
-        // Form handling function
-        function handleSubmit(event) {
-            event.preventDefault();
-            
-            const formData = {
-                name: document.getElementById('name').value,
-                phone: document.getElementById('phone').value,
-                message: document.getElementById('message').value
-            };
-
-            const formMessage = document.getElementById('formMessage');
-            
-            // Validate phone number
-            const phoneRegex = /^[0-9]{10}$/;
-            if (!phoneRegex.test(formData.phone)) {
-                formMessage.textContent = 'الرجاء إدخال رقم هاتف صحيح مكون من 10 أرقام';
-                formMessage.className = 'form-message error';
-                return;
-            }
-
-            // Show loading state
-            const submitBtn = event.target.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'جاري الإرسال...';
-            submitBtn.disabled = true;
-            
-            // Simulate form submission
-            setTimeout(() => {
-                formMessage.textContent = 'تم إرسال رسالتك بنجاح! سنتواصل معك قريباً';
-                formMessage.className = 'form-message success';
-                
-                // Reset form and button
-                document.getElementById('messageForm').reset();
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                
-                // Clear success message after 5 seconds
-                setTimeout(() => {
-                    formMessage.style.display = 'none';
-                }, 5000);
-            }, 1000);
-        }
-
         // Initialize
         document.addEventListener('DOMContentLoaded', function () {
             loadProfile();
@@ -1708,253 +2043,5 @@
             return number.toString();
         }
     </script>
-    
-</head>
-<body>
-    <header>
-        <nav class="navbar">
-            <div class="brand">
-                <a href="index.html">دار المعرفة للزواج</a>
-            </div>
-            <button class="navbar-toggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul class="nav-links">
-                <a href="index.html">الرئيسية</a>
-                <a href="#">البحث</a>
-                <a href="#">الملفات الشخصية</a>
-                <a href="about-us.html" target="_blank">من نحن</a>
-            </ul>
-        </nav>
-    </header>
-
-    <div class="container">
-        <a href="index.html" class="back-button">
-            <i class="fas fa-arrow-right"></i>
-            العودة للرئيسية
-        </a>
-
-        <!-- Ad Space 1 - Top -->
-        
-            <p>مساحة إعلانية</p>
-         
-          <div class="ad-container">
-            <!-- TOP BANNER DAR -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-6865939387108271"
-                 data-ad-slot="3668871632"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-          </div>
-        
-        <div class="profile-container">
-            <div class="profile-header">
-                <div class="profile-image-container">
-                    <!-- Profile image will be loaded here -->
-                </div>
-                <div class="profile-info">
-                    <!-- Profile info will be loaded here -->
-                </div>
-            </div>
-
-            <!-- Strategic Ad 1: After Profile Header -->
-            <p>مساحة إعلانية</p>
-           <div class="ad-container">
-              <!-- DAR 728 -->
-              <ins class="adsbygoogle"
-                   style="display:block"
-                   data-ad-client="ca-pub-6865939387108271"
-                   data-ad-slot="2547403219"
-                   data-ad-format="auto"
-                   data-full-width-responsive="true"></ins>
-           </div>
-            <div class="profile-details">
-                <div class="info-section">
-                    <h2>المعلومات الشخصية</h2>
-                    <!-- Personal info will be loaded here -->
-                </div>
-
-                <div class="info-section">
-                    <h2>نبذة شخصية</h2>
-                    <!-- Bio will be loaded here -->
-                </div>
-
-                <div class="info-section">
-                    <h2>الهوايات والاهتمامات</h2>
-                    <div class="hobbies-list">
-                        <!-- Hobbies will be loaded here -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="profile-actions">
-                <button class="action-button like-button">
-                    <i class="fas fa-heart"></i> إعجاب
-                </button>
-                <button class="action-button message-button">
-                    <i class="fas fa-comment"></i> مراسلة
-                </button>
-            </div>
-
-            <div class="share-buttons">
-                <a href="#" class="share-button share-whatsapp" onclick="shareProfile('whatsapp')">
-                    <i class="fab fa-whatsapp"></i>
-                    واتساب
-                </a>
-                <a href="#" class="share-button share-telegram" onclick="shareProfile('telegram')">
-                    <i class="fab fa-telegram-plane"></i>
-                    تليجرام
-                </a>
-                <a href="#" class="share-button share-messenger" onclick="shareProfile('messenger')">
-                    <i class="fab fa-facebook-messenger"></i>
-                    ماسنجر
-                </a>
-                <a href="#" class="share-button share-copy" onclick="copyProfileLink()">
-                    <i class="fas fa-link"></i>
-                    نسخ الرابط
-                </a>
-            </div>
-
-            <div class="share-stats">
-                <div class="share-stat-item">
-                    <i class="fab fa-whatsapp"></i>
-                    <div class="share-count">484</div>
-                    <div class="share-label">مشاركة عبر واتساب</div>
-                </div>
-                <div class="share-stat-item">
-                    <i class="fab fa-telegram-plane"></i>
-                    <div class="share-count">378</div>
-                    <div class="share-label">مشاركة عبر تليجرام</div>
-                </div>
-                <div class="share-stat-item">
-                    <i class="fab fa-facebook-messenger"></i>
-                    <div class="share-count">334</div>
-                    <div class="share-label">مشاركة عبر ماسنجر</div>
-                </div>
-                <div class="share-stat-item">
-                    <i class="fas fa-link"></i>
-                    <div class="share-count">289</div>
-                    <div class="share-label">نسخ الرابط</div>
-                </div>
-            </div>
-
-            <div class="view-counter">
-                <!-- View counter will be loaded here -->
-            </div>
-        </div>
-
-        <!-- Strategic Ad 2: Before Suggested Profiles -->
-                    <p>مساحة إعلانية متميزة</p>
-
-       <div class="ad-container">
-           <!-- SQURAE DAR -->
-           <ins class="adsbygoogle"
-                style="display:block"
-                data-ad-client="ca-pub-6865939387108271"
-                data-ad-slot="2495492397"
-                data-ad-format="auto"
-                data-full-width-responsive="true"></ins>
-       </div>
-
-        <!-- Suggested Profiles Section -->
-        <div id="suggested-profiles" class="suggested-profiles">
-            <h2>ملفات شخصية مقترحة</h2>
-            <div class="profiles-grid">
-                <!-- Profile cards will be loaded here -->
-            </div>
-        </div>
-
-        <!-- Ad Space 3 -->
-
-         <p>مساحة إعلانية</p>
-<div class="ad-container">
-          <!-- DAR INDEX -->
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-client="ca-pub-6865939387108271"
-               data-ad-slot="5117684674"
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
-        </div>
-        
-        
-    </div>
-
-    <!-- Add message section with form above footer -->
-    <section class="message-section">
-        <h2>اترك رسالة</h2>
-        <p class="notification">
-            <i class="fas fa-info-circle"></i>
-            سيتم الاتصال بك في أقرب وقت ممكن
-        </p>
-        <form class="message-form" id="messageForm" onsubmit="handleSubmit(event)">
-            <div class="form-group">
-                <label for="name">الاسم</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">رقم الهاتف</label>
-                <input type="tel" id="phone" name="phone" required 
-                    pattern="[0-9]{10}" title="الرجاء إدخال رقم هاتف صحيح">
-            </div>
-            <div class="form-group">
-                <label for="message">الرسالة</label>
-                <textarea id="message" name="message" required></textarea>
-            </div>
-            <button type="submit" class="submit-btn">إرسال الرسالة</button>
-            <div class="form-message" id="formMessage"></div>
-        </form>
-    </section>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>استكشف</h3>
-                <ul>
-                    <li><a href="index.html">الرئيسية</a></li>
-                    <li><a href="#">البحث</a></li>
-                    <li><a href="#">الملفات الشخصية</a></li>
-                    <li><a href="about-us.html" target="_blank">من نحن</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>نظرة عامة</h3>
-                <ul>
-                    <li><a href="about.html" target="_blank">حول الموقع</a></li>
-                    <li><a href="privacy.html" target="_blank">سياسة الخصوصية</a></li>
-                    <li><a href="terms.html" target="_blank">الشروط والأحكام</a></li>
-                    <li><a href="contact.html" target="_blank">اتصل بنا</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>المجتمع</h3>
-                <ul>
-                    <li><a href="#">مركز المساعدة</a></li>
-                    <li><a href="#">الدعم الفني</a></li>
-                    <li><a href="faq.html" target="_blank">الأسئلة الشائعة</a></li>
-                    <li><a href="#">النصائح والإرشادات</a></li>
-                </ul>
-                <div class="social-links">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h3>تطبيق الجوال</h3>
-                <p>حمل التطبيق الآن</p>
-                <div class="app-downloads">
-                    <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store"></a>
-                    <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Play Store"></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>جميع الحقوق محفوظة 2024 زواج و تعارف</p>
-        </div>
-    </footer>
-
 </body>
 </html>
