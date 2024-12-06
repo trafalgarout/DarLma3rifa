@@ -201,7 +201,7 @@
 
         .profile-card {
             background: #fff;
-            border-radius: 10px;
+            border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
@@ -1387,27 +1387,43 @@
             }
         }
     
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6865939387108271" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6865939387108271"
+     crossorigin="anonymous"></script>
     </style>
 
 <script>
-        // Initialize the Privacy Sandbox API
-        (function(win) {
-            if (win.navigation && win.navigation.addEventListener) {
-                win.navigation.addEventListener('navigate', () => {
-                    // Push ads on navigation
-                    (adsbygoogle = win.adsbygoogle || []).push({});
+        // Initialize the Privacy Sandbox API for ads
+        (async function() {
+            if (navigator.cookieDeprecationLabel === 'deprecation_trial') {
+                console.log('Third party cookies are currently available');
+            }
+            
+            // Check if browser supports the Privacy Sandbox API
+            if (document.featurePolicy?.features().includes('browsing-topics')) {
+                // Request browsing topics
+                document.browsingTopics && document.browsingTopics().then((topics) => {
+                    console.log('Browsing topics:', topics);
+                }).catch((err) => {
+                    console.error('Error getting browsing topics:', err);
                 });
             }
-            // Check for Privacy Sandbox APIs
-            if (win.chrome && win.chrome.privacySandbox) {
-                win.chrome.privacySandbox.addEventListener('statechange', (e) => {
-                    const state = e.state;
-                    const enabled = state === 'enabled';
-                    console.log('Privacy Sandbox state:', state);
-                });
+
+            // Initialize ad personalization
+            if (navigator.runAdAuction) {
+                console.log('Protected Audience API is available');
             }
-        })(window);
+        })();
+
+        // Wait for DOM to be ready
+        window.addEventListener('load', function() {
+            // Initialize AdSense with privacy-safe settings
+            (adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = 1;
+            (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-6865939387108271",
+                enable_page_level_ads: true,
+                overlays: {bottom: true}
+            });
+        });
     </script>
     
 </head>
