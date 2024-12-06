@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملف الشخصي - موقع الزواج والتعارف</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .profile-details {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .profile-header {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .profile-image-large {
+            width: 300px;
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .profile-image-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile-info-large {
+            flex: 1;
+        }
+        .profile-name-large {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        .profile-age-large {
+            font-size: 1.5rem;
+            color: #7f8c8d;
+            margin-bottom: 1rem;
+        }
+        .profile-location {
+            font-size: 1.2rem;
+            color: #95a5a6;
+        }
+        .profile-bio {
+            margin: 2rem 0;
+            line-height: 1.6;
+        }
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .stat-item {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-label {
+            color: #7f8c8d;
+            margin-bottom: 0.5rem;
+        }
+        .stat-value {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .profile-image-large {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <h1><a href="../index.html" style="text-decoration: none; color: inherit;">موقع الزواج والتعارف</a></h1>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="../index.html"><i class="fas fa-home"></i> الرئيسية</a></li>
+                    <li><a href="#"><i class="fas fa-search"></i> البحث</a></li>
+                    <li><a href="#"><i class="fas fa-info-circle"></i> من نحن</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="profile-details">
+            <div class="profile-header">
+                <div class="profile-image-large">
+                    <img src="../pictures/PROFILE_IMAGE" alt="صورة شخصية" onerror="this.src='https://via.placeholder.com/300x400?text=صورة+غير+متوفرة'">
+                </div>
+                <div class="profile-info-large">
+                    <h1 class="profile-name-large">PROFILE_NAME</h1>
+                    <div class="profile-age-large">PROFILE_AGE سنة</div>
+                    <div class="profile-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        PROFILE_LOCATION
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-bio">
+                PROFILE_BIO
+            </div>
+
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <div class="stat-label">الحالة الاجتماعية</div>
+                    <div class="stat-value">MARITAL_STATUS</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">المؤهل العلمي</div>
+                    <div class="stat-value">EDUCATION</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">العمل</div>
+                    <div class="stat-value">OCCUPATION</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">الطول</div>
+                    <div class="stat-value">HEIGHT سم</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            document.querySelector('.main-nav').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

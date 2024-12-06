@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حول الموقع - زواج و تعارف</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .about-section {
+            background: white;
+            border-radius: 10px;
+            padding: 3rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .about-section h1 {
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .about-section h1::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: #3498db;
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-item i {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+
+        .feature-item h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .mission-section {
+            text-align: center;
+            margin: 4rem 0;
+            padding: 3rem;
+            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .mission-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-item .number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-section {
+                grid-template-columns: 1fr;
+            }
+
+            .about-section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html">زواج و تعارف</a>
+    </nav>
+
+    <div class="container">
+        <section class="about-section">
+            <h1>حول الموقع</h1>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem;">
+                موقع زواج و تعارف هو منصة رائدة للزواج الإسلامي، نجمع بين التكنولوجيا الحديثة والقيم الإسلامية الأصيلة
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <i class="fas fa-user-shield"></i>
+                    <h3>خصوصية تامة</h3>
+                    <p>نحافظ على خصوصية جميع المستخدمين بأعلى معايير الأمان</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-mosque"></i>
+                    <h3>زواج إسلامي</h3>
+                    <p>نلتزم بالقيم والتعاليم الإسلامية في جميع خدماتنا</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-heart"></i>
+                    <h3>قصص نجاح</h3>
+                    <p>آلاف القصص الناجحة في إيجاد شريك الحياة المناسب</p>
+                </div>
+            </div>
+
+            <div class="mission-section">
+                <h2>رؤيتنا</h2>
+                <p>نسعى لأن نكون المنصة الرائدة في مجال الزواج الإسلامي، ونساعد في بناء أسر سعيدة على أسس إسلامية صحيحة</p>
+            </div>
+
+            <div class="stats-section">
+                <div class="stat-item">
+                    <div class="number">50,000+</div>
+                    <div>مستخدم نشط</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">5,000+</div>
+                    <div>قصة نجاح</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">100%</div>
+                    <div>خصوصية وأمان</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">24/7</div>
+                    <div>دعم متواصل</div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
