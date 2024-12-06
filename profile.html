@@ -1385,34 +1385,80 @@
                 min-height: 50px;
             }
         }
-    
+    </style>
+
     <script>
-        // Initialize the Privacy Sandbox API for ads
-        (async function() {
-            if (navigator.cookieDeprecationLabel === 'deprecation_trial') {
-                console.log('Third party cookies are currently available');
-            }
-            
-            // Check if browser supports the Privacy Sandbox API
-            if (document.featurePolicy?.features().includes('browsing-topics')) {
-                // Request browsing topics
-                document.browsingTopics && document.browsingTopics().then((topics) => {
-                    console.log('Browsing topics:', topics);
-                }).catch((err) => {
-                    console.error('Error getting browsing topics:', err);
-                });
-            }
+        function generateProfile(id) {
+            return {
+                name: "سارة أحمد",
+                age: 28,
+                location: "الرياض، المملكة العربية السعودية",
+                occupation: "طبيبة",
+                education: "بكالوريوس طب",
+                about: "طبيبة متخصصة، أبحث عن شريك حياة متفهم ومثقف.",
+                interests: ["القراءة", "السفر", "الطب", "العمل التطوعي"]
+            };
+        }
 
-            // Initialize ad personalization
-            if (navigator.runAdAuction) {
-                console.log('Protected Audience API is available');
-            }
-        })();
-
-        // Initialize AdSense
-        window.addEventListener('load', function() {
+        function loadProfile() {
             try {
-                // Initialize each ad unit individually
+                const urlParams = new URLSearchParams(window.location.search);
+                const profileId = parseInt(urlParams.get('id')) || 1;
+                const profile = generateProfile(profileId);
+
+                // Update profile information
+                document.getElementById('profile-name').textContent = profile.name;
+                document.getElementById('profile-age').textContent = `العمر: ${profile.age} سنة`;
+                document.getElementById('profile-location').textContent = profile.location;
+                document.getElementById('profile-occupation').textContent = profile.occupation;
+                document.getElementById('profile-education').textContent = profile.education;
+                document.getElementById('about-text').textContent = profile.about;
+
+                // Update interests
+                const interestsList = document.getElementById('interests-list');
+                if (interestsList) {
+                    interestsList.innerHTML = profile.interests
+                        .map(interest => `<span class="hobby-tag">${interest}</span>`)
+                        .join('');
+                }
+            } catch (error) {
+                console.error('Error loading profile:', error);
+            }
+        }
+
+        function loadSuggestedProfiles() {
+            try {
+                const suggestedProfiles = [
+                    { name: "نورة محمد", age: 25, location: "جدة" },
+                    { name: "فاطمة علي", age: 27, location: "الدمام" },
+                    { name: "ريم عبدالله", age: 24, location: "مكة" }
+                ];
+
+                const profilesGrid = document.querySelector('.profiles-grid');
+                if (profilesGrid) {
+                    profilesGrid.innerHTML = suggestedProfiles.map(profile => `
+                        <div class="profile-card">
+                            <img src="images/default-profile.jpg" alt="${profile.name}">
+                            <div class="profile-info">
+                                <h3>${profile.name}</h3>
+                                <p>${profile.age} سنة</p>
+                                <p><i class="fas fa-map-marker-alt"></i> ${profile.location}</p>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error loading suggested profiles:', error);
+            }
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProfile();
+            loadSuggestedProfiles();
+            
+            // Initialize ads
+            try {
                 const adUnits = document.querySelectorAll('.adsbygoogle');
                 adUnits.forEach(unit => {
                     (adsbygoogle = window.adsbygoogle || []).push({});
