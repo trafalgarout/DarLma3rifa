@@ -193,11 +193,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add pagination click handlers
     paginationElement.addEventListener('click', function(e) {
         e.preventDefault();
+        console.log('Pagination clicked', e.target);
         if (e.target.classList.contains('page-link')) {
             const page = parseInt(e.target.dataset.page);
+            console.log('Page selected:', page);
             if (page && page >= 1 && page <= totalPages) {
+                console.log('Loading profiles for page:', page);
                 loadProfiles(page);
                 paginationElement.innerHTML = generatePagination(page, totalPages);
+                
+                // Scroll to the top of the profiles grid
+                document.getElementById('profilesGrid').scrollIntoView({
+                    behavior: 'smooth'
+                });
             }
         }
     });
