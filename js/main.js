@@ -637,26 +637,54 @@ function generateIndexPagination(currentPage, totalPages) {
     console.log('Generating index pagination:', currentPage, totalPages);
     let paginationHtml = '';
     
-    // Previous button
+    // Previous button with custom styling
     paginationHtml += `
         <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-            <a class="page-link" href="#" data-page="${currentPage - 1}">السابق</a>
+            <a class="page-link pagination-btn pagination-prev" href="#" data-page="${currentPage - 1}">
+                <i class="fas fa-chevron-right"></i> السابق
+            </a>
         </li>
     `;
     
-    // Page numbers
-    for (let i = 1; i <= totalPages; i++) {
+    // Page numbers with more dynamic styling
+    // Show first page, last page, and pages around current page
+    const range = 2; // Number of pages to show on each side of current page
+    
+    // First page
+    if (currentPage > range + 1) {
+        paginationHtml += `
+            <li class="page-item">
+                <a class="page-link pagination-btn" href="#" data-page="1">1</a>
+            </li>
+            ${currentPage > range + 2 ? '<li class="page-item disabled"><span class="page-link">...</span></li>' : ''}
+        `;
+    }
+    
+    // Pages around current page
+    for (let i = Math.max(1, currentPage - range); i <= Math.min(totalPages, currentPage + range); i++) {
         paginationHtml += `
             <li class="page-item ${currentPage === i ? 'active' : ''}">
-                <a class="page-link" href="#" data-page="${i}">${i}</a>
+                <a class="page-link pagination-btn" href="#" data-page="${i}">${i}</a>
             </li>
         `;
     }
     
-    // Next button
+    // Last page
+    if (currentPage < totalPages - range) {
+        paginationHtml += `
+            ${currentPage < totalPages - range - 1 ? '<li class="page-item disabled"><span class="page-link">...</span></li>' : ''}
+            <li class="page-item">
+                <a class="page-link pagination-btn" href="#" data-page="${totalPages}">${totalPages}</a>
+            </li>
+        `;
+    }
+    
+    // Next button with custom styling
     paginationHtml += `
         <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-            <a class="page-link" href="#" data-page="${currentPage + 1}">التالي</a>
+            <a class="page-link pagination-btn pagination-next" href="#" data-page="${currentPage + 1}">
+                التالي <i class="fas fa-chevron-left"></i>
+            </a>
         </li>
     `;
     
