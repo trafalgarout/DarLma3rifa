@@ -699,12 +699,18 @@ function generateIndexPagination(currentPage, totalPages) {
 function initializeIndexPagination() {
     console.log('Initializing index page pagination');
     
+    // Ensure we're on the index page
+    if (!window.location.pathname.includes('index.html')) {
+        console.log('Not on index page, skipping index pagination');
+        return;
+    }
+    
     // Use querySelector to ensure we find the elements
     const profilesGrid = document.querySelector('#profilesGrid');
     const paginationElement = document.querySelector('#pagination');
     
     if (!profilesGrid || !paginationElement) {
-        console.error('Required elements not found on index page:', {
+        console.error('Required elements not found on index page', {
             profilesGrid: !!profilesGrid, 
             paginationElement: !!paginationElement
         });
@@ -720,8 +726,12 @@ function initializeIndexPagination() {
     // Generate initial pagination
     paginationElement.innerHTML = generateIndexPagination(currentPage, totalPages);
     
+    // Clear any existing pagination event listeners
+    const oldPaginationElement = paginationElement.cloneNode(true);
+    paginationElement.parentNode.replaceChild(oldPaginationElement, paginationElement);
+    
     // Add pagination click event listener
-    paginationElement.addEventListener('click', function(e) {
+    oldPaginationElement.addEventListener('click', function(e) {
         e.preventDefault();
         console.log('Index page pagination clicked', e.target);
         
@@ -733,7 +743,7 @@ function initializeIndexPagination() {
             if (page && page >= 1 && page <= totalPages) {
                 console.log('Loading profiles for page:', page);
                 loadIndexProfiles(page);
-                paginationElement.innerHTML = generateIndexPagination(page, totalPages);
+                oldPaginationElement.innerHTML = generateIndexPagination(page, totalPages);
                 
                 // Scroll to top of profiles grid
                 profilesGrid.scrollIntoView({ behavior: 'smooth' });
@@ -746,18 +756,12 @@ function initializeIndexPagination() {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded, checking for index page');
     
-    // Use querySelector to ensure we find the elements
-    const profilesGrid = document.querySelector('#profilesGrid');
-    const paginationElement = document.querySelector('#pagination');
-    
-    if (profilesGrid && paginationElement) {
+    // Ensure we're on the index page
+    if (window.location.pathname.includes('index.html')) {
         console.log('Index page detected, initializing pagination');
         initializeIndexPagination();
     } else {
-        console.log('Not on index page or missing required elements', {
-            profilesGrid: !!profilesGrid, 
-            paginationElement: !!paginationElement
-        });
+        console.log('Not on index page');
     }
 });
 
