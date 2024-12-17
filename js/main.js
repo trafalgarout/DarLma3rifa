@@ -306,6 +306,8 @@ function loadSeeAlsoProfiles(currentProfile, specificProfileIds = []) {
                 profilesToShow = [...profilesToShow, ...randomProfiles];
             }
 
+            console.log('See Also Profiles:', profilesToShow);
+
             // Generate HTML for profiles
             if (profilesToShow.length === 0) {
                 seeAlsoContainer.innerHTML = '<div class="col-12 text-center">لا توجد ملفات مشابهة</div>';
@@ -616,7 +618,9 @@ function loadIndexProfiles(page) {
     console.log('Loading index profiles for page:', page);
     const profilesPerPage = 40;
     const startIndex = (page - 1) * profilesPerPage;
-    const profilesGrid = document.getElementById('profilesGrid');
+    
+    // Use querySelector to ensure we find the element
+    const profilesGrid = document.querySelector('#profilesGrid');
     
     if (!profilesGrid) {
         console.error('Profiles grid not found on index page');
@@ -694,11 +698,16 @@ function generateIndexPagination(currentPage, totalPages) {
 // Dedicated index page pagination initialization
 function initializeIndexPagination() {
     console.log('Initializing index page pagination');
-    const profilesGrid = document.getElementById('profilesGrid');
-    const paginationElement = document.getElementById('pagination');
+    
+    // Use querySelector to ensure we find the elements
+    const profilesGrid = document.querySelector('#profilesGrid');
+    const paginationElement = document.querySelector('#pagination');
     
     if (!profilesGrid || !paginationElement) {
-        console.error('Required elements not found on index page');
+        console.error('Required elements not found on index page:', {
+            profilesGrid: !!profilesGrid, 
+            paginationElement: !!paginationElement
+        });
         return;
     }
     
@@ -716,8 +725,9 @@ function initializeIndexPagination() {
         e.preventDefault();
         console.log('Index page pagination clicked', e.target);
         
-        if (e.target.classList.contains('page-link')) {
-            const page = parseInt(e.target.dataset.page);
+        const pageLink = e.target.closest('.page-link');
+        if (pageLink) {
+            const page = parseInt(pageLink.dataset.page);
             console.log('Selected page:', page);
             
             if (page && page >= 1 && page <= totalPages) {
@@ -736,12 +746,18 @@ function initializeIndexPagination() {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded, checking for index page');
     
-    // Only run if on index page
-    if (document.getElementById('profilesGrid') && document.getElementById('pagination')) {
+    // Use querySelector to ensure we find the elements
+    const profilesGrid = document.querySelector('#profilesGrid');
+    const paginationElement = document.querySelector('#pagination');
+    
+    if (profilesGrid && paginationElement) {
         console.log('Index page detected, initializing pagination');
         initializeIndexPagination();
     } else {
-        console.log('Not on index page or missing required elements');
+        console.log('Not on index page or missing required elements', {
+            profilesGrid: !!profilesGrid, 
+            paginationElement: !!paginationElement
+        });
     }
 });
 
