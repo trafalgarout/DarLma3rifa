@@ -538,64 +538,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Update number of thumbnails to display
-const totalThumbnails = 1000;
-
-function generateThumbnails() {
-    let thumbnailsHtml = '';
-    for (let i = 1; i <= totalThumbnails; i++) {
-        thumbnailsHtml += `<div class="col-md-3 mb-4">
-            <div class="card">
-                <img src="images/profile${i}.jpg" class="card-img-top" alt="Profile Thumbnail ${i}">
-                <div class="card-body">
-                    <h5 class="card-title">Profile ${i}</h5>
-                    <a href="profile.html?id=${i}" class="btn btn-primary">View Profile</a>
-                </div>
-            </div>
-        </div>`;
-    }
-    document.getElementById('thumbnailsContainer').innerHTML = thumbnailsHtml;
-}
-
-// Call the function to generate thumbnails
-if (document.getElementById('thumbnailsContainer')) {
-    generateThumbnails();
-}
-
-// Share Profile Function
-function shareProfile(platform) {
-    const profileId = new URLSearchParams(window.location.search).get('id');
-    const profileUrl = `${window.location.origin}/profile.html?id=${profileId}`;
-    const shareText = 'Check out this profile on زواج و تعارف';
-
-    const shareUrls = {
-        whatsapp: `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + profileUrl)}`,
-        facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(profileUrl)}`,
-        twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(profileUrl)}`,
-        pinterest: `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(profileUrl)}`,
-        linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(profileUrl)}`,
-        telegram: `https://t.me/share/url?url=${encodeURIComponent(profileUrl)}&text=${encodeURIComponent(shareText)}`
-    };
-
-    if (shareUrls[platform]) {
-        window.open(shareUrls[platform], '_blank');
-    } else {
-        console.error('Unsupported sharing platform');
-    }
-}
-
-// Add event listeners for share buttons
-document.addEventListener('DOMContentLoaded', function() {
-    const shareButtons = document.querySelectorAll('.share-btn');
-    shareButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const platform = this.getAttribute('data-platform');
-            shareProfile(platform);
-        });
-    });
-});
-
 // Unified Profile Loading Function
 function initializeProfilePage() {
     console.log('Initializing Profile Page');
@@ -726,4 +668,38 @@ function renderSimilarProfiles() {
 // Call the function when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     renderSimilarProfiles();
+});
+
+// Share Profile Function
+function shareProfile(platform) {
+    const profileId = new URLSearchParams(window.location.search).get('id');
+    const profileUrl = `${window.location.origin}/profile.html?id=${profileId}`;
+    const shareText = 'Check out this profile on زواج و تعارف';
+
+    const shareUrls = {
+        whatsapp: `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + profileUrl)}`,
+        facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(profileUrl)}`,
+        twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(profileUrl)}`,
+        pinterest: `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(profileUrl)}`,
+        linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(profileUrl)}`,
+        telegram: `https://t.me/share/url?url=${encodeURIComponent(profileUrl)}&text=${encodeURIComponent(shareText)}`
+    };
+
+    if (shareUrls[platform]) {
+        window.open(shareUrls[platform], '_blank');
+    } else {
+        console.error('Unsupported sharing platform');
+    }
+}
+
+// Add event listeners for share buttons
+document.addEventListener('DOMContentLoaded', function() {
+    const shareButtons = document.querySelectorAll('.share-btn');
+    shareButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const platform = this.getAttribute('data-platform');
+            shareProfile(platform);
+        });
+    });
 });
