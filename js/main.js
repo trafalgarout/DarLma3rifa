@@ -180,35 +180,40 @@ document.addEventListener('DOMContentLoaded', function() {
         loadProfileData();
     }
 
-    const currentPage = 1;
-    const totalPages = 25; // Adjust based on total number of profiles
-    
-    // Load initial profiles
-    loadProfiles(currentPage);
-    
-    // Generate pagination
-    const paginationElement = document.getElementById('pagination');
-    paginationElement.innerHTML = generatePagination(currentPage, totalPages);
-    
-    // Add pagination click handlers
-    paginationElement.addEventListener('click', function(e) {
-        e.preventDefault();
-        console.log('Pagination clicked', e.target);
-        if (e.target.classList.contains('page-link')) {
-            const page = parseInt(e.target.dataset.page);
-            console.log('Page selected:', page);
-            if (page && page >= 1 && page <= totalPages) {
-                console.log('Loading profiles for page:', page);
-                loadProfiles(page);
-                paginationElement.innerHTML = generatePagination(page, totalPages);
+    // Check if we're on the index page
+    if (document.getElementById('profilesGrid')) {
+        const currentPage = 1;
+        const totalPages = 25; // Adjust based on total number of profiles
+        const paginationElement = document.getElementById('pagination');
+        
+        // Load initial profiles
+        loadProfiles(currentPage);
+        
+        // Generate pagination
+        paginationElement.innerHTML = generatePagination(currentPage, totalPages);
+        
+        // Add pagination click handlers specifically for index page
+        paginationElement.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Index Page Pagination clicked', e.target);
+            
+            if (e.target.classList.contains('page-link')) {
+                const page = parseInt(e.target.dataset.page);
+                console.log('Index Page selected:', page);
                 
-                // Scroll to the top of the profiles grid
-                document.getElementById('profilesGrid').scrollIntoView({
-                    behavior: 'smooth'
-                });
+                if (page && page >= 1 && page <= totalPages) {
+                    console.log('Loading profiles for index page:', page);
+                    loadProfiles(page);
+                    paginationElement.innerHTML = generatePagination(page, totalPages);
+                    
+                    // Scroll to the top of the profiles grid
+                    document.getElementById('profilesGrid').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
             }
-        }
-    });
+        });
+    }
 });
 
 // Function to load similar profiles
