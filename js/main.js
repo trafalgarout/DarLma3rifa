@@ -611,6 +611,112 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Specific function for loading index page profiles
+function loadIndexProfiles(page) {
+    console.log('Loading index profiles for page:', page);
+    const profilesPerPage = 40;
+    const startIndex = (page - 1) * profilesPerPage;
+    const profilesGrid = document.getElementById('profilesGrid');
+    
+    if (!profilesGrid) {
+        console.error('Profiles grid not found on index page');
+        return;
+    }
+    
+    let profilesHtml = '';
+    
+    for (let i = 0; i < profilesPerPage; i++) {
+        profilesHtml += createProfileCard(startIndex + i);
+    }
+    
+    profilesGrid.innerHTML = profilesHtml;
+}
+
+// Specific pagination generation for index page
+function generateIndexPagination(currentPage, totalPages) {
+    console.log('Generating index pagination:', currentPage, totalPages);
+    let paginationHtml = '';
+    
+    // Previous button
+    paginationHtml += `
+        <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+            <a class="page-link" href="#" data-page="${currentPage - 1}">السابق</a>
+        </li>
+    `;
+    
+    // Page numbers
+    for (let i = 1; i <= totalPages; i++) {
+        paginationHtml += `
+            <li class="page-item ${currentPage === i ? 'active' : ''}">
+                <a class="page-link" href="#" data-page="${i}">${i}</a>
+            </li>
+        `;
+    }
+    
+    // Next button
+    paginationHtml += `
+        <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+            <a class="page-link" href="#" data-page="${currentPage + 1}">التالي</a>
+        </li>
+    `;
+    
+    return paginationHtml;
+}
+
+// Dedicated index page pagination initialization
+function initializeIndexPagination() {
+    console.log('Initializing index page pagination');
+    const profilesGrid = document.getElementById('profilesGrid');
+    const paginationElement = document.getElementById('pagination');
+    
+    if (!profilesGrid || !paginationElement) {
+        console.error('Required elements not found on index page');
+        return;
+    }
+    
+    const currentPage = 1;
+    const totalPages = 25; // Adjust based on total number of profiles
+    
+    // Load initial profiles
+    loadIndexProfiles(currentPage);
+    
+    // Generate initial pagination
+    paginationElement.innerHTML = generateIndexPagination(currentPage, totalPages);
+    
+    // Add pagination click event listener
+    paginationElement.addEventListener('click', function(e) {
+        e.preventDefault();
+        console.log('Index page pagination clicked', e.target);
+        
+        if (e.target.classList.contains('page-link')) {
+            const page = parseInt(e.target.dataset.page);
+            console.log('Selected page:', page);
+            
+            if (page && page >= 1 && page <= totalPages) {
+                console.log('Loading profiles for page:', page);
+                loadIndexProfiles(page);
+                paginationElement.innerHTML = generateIndexPagination(page, totalPages);
+                
+                // Scroll to top of profiles grid
+                profilesGrid.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    });
+}
+
+// Run initialization when DOM is fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, checking for index page');
+    
+    // Only run if on index page
+    if (document.getElementById('profilesGrid') && document.getElementById('pagination')) {
+        console.log('Index page detected, initializing pagination');
+        initializeIndexPagination();
+    } else {
+        console.log('Not on index page or missing required elements');
+    }
+});
+
 // Sample profiles data (replace with your actual data source)
 const allProfiles = [
     {
