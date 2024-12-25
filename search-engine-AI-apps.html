@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+  <head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>محرك البحث الذكي  - دار المعرفة</title>
+    <meta name="description" content="محرك بحث دار المعرفة - منصة تعليمية شاملة للبحث عن المواد التعليمية والدروس والموارد التربوية">
+    <meta name="keywords" content="محرك بحث تعليمي, دار المعرفة, بحث ذكي, موارد تعليمية, تعليم عربي">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script async src="https://cse.google.com/cse.js?cx=b542fb5a835b6980a"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6865939387108271" crossorigin="anonymous"></script>
+    
+    <style>
+      :root {
+        --primary-color: #502274;
+        --secondary-color: #A42CD6;
+        --accent-color: #C179B9;
+        --text-color: #EEB4B3;
+        --dark-color: #2F242C;
+        --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+        --gradient-accent: linear-gradient(45deg, var(--accent-color) 0%, var(--secondary-color) 100%);
+        --shadow-soft: 0 8px 30px rgba(47, 36, 44, 0.3);
+        --shadow-strong: 0 15px 40px rgba(47, 36, 44, 0.4);
+        --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --navbar-height: 80px;
+        --container-padding: 1rem;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        direction: rtl;
+        font-family: 'Tajawal', sans-serif;
+        background: var(--gradient-primary);
+        color: var(--text-color);
+        overflow-x: hidden;
+      }
+
+      .page-wrapper {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        padding-top: var(--navbar-height);
+      }
+
+      .main-content {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: var(--container-padding);
+        width: 100%;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 var(--container-padding);
+      }
+
+      .search-container {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        background: rgba(80, 34, 116, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 30px;
+        padding: 3rem 2rem;
+        box-shadow: var(--shadow-soft);
+        border: 1px solid rgba(238, 180, 179, 0.1);
+        transform: translateY(0);
+        transition: var(--transition-smooth);
+      }
+
+      .search-container:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-strong);
+      }
+
+      .search-title {
+        text-align: center;
+        font-size: 3rem;
+        margin-bottom: 2.5rem;
+        color: var(--text-color);
+        text-shadow: 0 2px 15px rgba(238, 180, 179, 0.2);
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        position: relative;
+      }
+
+      .search-title::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        width: 100px;
+        height: 3px;
+        background: var(--gradient-accent);
+        border-radius: 2px;
+      }
+
+      .search-box {
+        background: rgba(193, 121, 185, 0.1);
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: inset 0 2px 10px rgba(47, 36, 44, 0.2);
+        margin-bottom: 2rem;
+        border: 1px solid rgba(238, 180, 179, 0.05);
+        transition: var(--transition-smooth);
+      }
+
+      .search-box:focus-within {
+        background: rgba(193, 121, 185, 0.15);
+        box-shadow: inset 0 2px 15px rgba(47, 36, 44, 0.3);
+      }
+
+      .keywords-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 2.5rem;
+        padding: 0 1rem;
+      }
+
+      .keyword-button {
+        background: var(--gradient-accent);
+        border: none;
+        border-radius: 12px;
+        padding: 0.8rem 1.5rem;
+        color: #ffffff;
+        font-family: 'Tajawal', sans-serif;
+        font-size: 0.95rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+        box-shadow: 0 4px 15px rgba(164, 44, 214, 0.2);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .keyword-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+        opacity: 0;
+        transition: var(--transition-smooth);
+      }
+
+      .keyword-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(164, 44, 214, 0.3);
+      }
+
+      .keyword-button:hover::before {
+        opacity: 1;
+      }
+
+      .keyword-button span {
+        position: relative;
+        z-index: 1;
+      }
+
+      .ad-container {
+        width: 100%;
+        max-width: 900px;
+        margin: 1.5rem auto;
+        background: rgba(193, 121, 185, 0.1);
+        backdrop-filter: blur(5px);
+        border-radius: 20px;
+        padding: 1.5rem;
+        box-shadow: var(--shadow-soft);
+        transition: var(--transition-smooth);
+      }
+
+      .ad-container:hover {
+        background: rgba(193, 121, 185, 0.15);
+        box-shadow: var(--shadow-strong);
+      }
+
+      /* Google CSE Customization */
+      .gsc-control-cse {
+        background: transparent !important;
+        border: none !important;
+        font-family: 'Tajawal', sans-serif !important;
+        padding: 0 !important;
+      }
+
+      .gsc-input-box {
+        border-radius: 15px !important;
+        border: 1px solid rgba(238, 180, 179, 0.1) !important;
+        background: rgba(193, 121, 185, 0.1) !important;
+        box-shadow: inset 0 2px 10px rgba(47, 36, 44, 0.2) !important;
+        transition: var(--transition-smooth) !important;
+      }
+
+      .gsc-input-box:focus-within {
+        background: rgba(193, 121, 185, 0.15) !important;
+        box-shadow: inset 0 2px 15px rgba(47, 36, 44, 0.3) !important;
+        border-color: rgba(238, 180, 179, 0.2) !important;
+      }
+
+      .gsc-input {
+        padding: 12px 16px !important;
+        font-family: 'Tajawal', sans-serif !important;
+        color: var(--text-color) !important;
+        font-size: 1.1rem !important;
+      }
+
+      .gsc-search-button-v2 {
+        border-radius: 12px !important;
+        background: var(--gradient-accent) !important;
+        border: none !important;
+        padding: 12px 24px !important;
+        margin-right: 10px !important;
+        transition: var(--transition-smooth) !important;
+      }
+
+      .gsc-search-button-v2:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px rgba(164, 44, 214, 0.3) !important;
+      }
+
+      .gsc-input-box input {
+        text-align: right !important;
+        background: transparent !important;
+        color: var(--text-color) !important;
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: var(--navbar-height);
+        backdrop-filter: blur(10px);
+        background: rgba(248, 249, 250, 0.9) !important;
+        z-index: 1000;
+        transition: var(--transition-smooth);
+      }
+
+      .navbar-collapse {
+        background: rgba(248, 249, 250, 0.95);
+        backdrop-filter: blur(10px);
+      }
+
+      .navbar-toggler {
+        border: none;
+        padding: 0.5rem;
+        margin-right: 1rem;
+        transition: var(--transition-smooth);
+      }
+
+      .navbar-toggler:focus {
+        box-shadow: none;
+        outline: none;
+      }
+
+      .navbar-toggler-icon {
+        width: 1.5em;
+        height: 1.5em;
+        position: relative;
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        transition: var(--transition-smooth);
+        margin-right: 0;
+        margin-left: 1rem;
+      }
+
+      .navbar-nav {
+        padding: 1rem 0;
+      }
+
+      .nav-item {
+        margin: 0.5rem 0;
+      }
+
+      .nav-link {
+        position: relative;
+        transition: var(--transition-smooth);
+        padding: 0.5rem 1rem !important;
+      }
+
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: var(--gradient-accent);
+        transition: var(--transition-smooth);
+        transform: translateX(-50%);
+      }
+
+      .nav-link:hover::after,
+      .nav-link.active::after {
+        width: 80%;
+      }
+
+      @media (max-width: 991.98px) {
+        :root {
+          --navbar-height: 70px;
+          --container-padding: 0.75rem;
+        }
+
+        .navbar-collapse {
+          position: absolute;
+          top: var(--navbar-height);
+          left: 0;
+          right: 0;
+          padding: 1rem;
+          border-radius: 0 0 20px 20px;
+          box-shadow: var(--shadow-soft);
+        }
+
+        .nav-item {
+          text-align: center;
+        }
+
+        .nav-link::after {
+          bottom: -2px;
+        }
+
+        .search-container {
+          padding: 2rem 1rem;
+        }
+
+        .search-title {
+          font-size: 2rem;
+        }
+
+        .keywords-container {
+          gap: 0.75rem;
+        }
+
+        .keyword-button {
+          font-size: 0.85rem;
+          padding: 0.6rem 1.2rem;
+        }
+
+        .ad-container {
+          margin: 1rem auto;
+        }
+      }
+
+      @media (max-width: 575.98px) {
+        :root {
+          --container-padding: 0.5rem;
+        }
+
+        .search-container {
+          padding: 1.5rem 1rem;
+          border-radius: 20px;
+        }
+
+        .search-title {
+          font-size: 1.75rem;
+        }
+
+        .search-box {
+          padding: 1rem;
+        }
+
+        .keyword-button {
+          font-size: 0.8rem;
+          padding: 0.5rem 1rem;
+        }
+      }
+
+      /* Footer Styles */
+      .footer {
+        margin-top: auto;
+        background: var(--dark-color) !important;
+        border-top: 1px solid rgba(238, 180, 179, 0.1);
+      }
+
+      .footer h5 {
+        color: var(--text-color);
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+      }
+
+      .footer .list-unstyled li {
+        margin-bottom: 0.75rem;
+      }
+
+      .footer .list-unstyled a {
+        color: rgba(238, 180, 179, 0.8);
+        text-decoration: none;
+        transition: var(--transition-smooth);
+      }
+
+      .footer .list-unstyled a:hover {
+        color: var(--text-color);
+        transform: translateX(-5px);
+      }
+
+      .footer .social-links a {
+        font-size: 1.25rem;
+        opacity: 0.8;
+        transition: var(--transition-smooth);
+      }
+
+      .footer .social-links a:hover {
+        opacity: 1;
+        transform: translateY(-3px);
+      }
+
+      .footer .app-badges img {
+        transition: var(--transition-smooth);
+      }
+
+      .footer .app-badges img:hover {
+        transform: translateY(-3px);
+      }
+
+      @media (max-width: 767.98px) {
+        .footer h5 {
+          margin-top: 1.5rem;
+          margin-bottom: 1rem;
+        }
+
+        .footer .col-md-3:first-child h5 {
+          margin-top: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <i class="fas fa-heart me-2 text-danger"></i>
+            <span class="fw-bold text-dark">زواج و تعارف</span>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link text-dark" href="index.html">
+                  <i class="fas fa-home me-1 text-muted"></i> الرئيسية
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-dark" href="search-engine.html">
+                  <i class="fas fa-search me-1 text-muted"></i> البحث الذكي 
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-dark active" href="search-engine-AI-apps.html">
+                  <i class="fas fa-search me-1 text-muted"></i>تطبيقات AI  
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-dark" href="#">
+                  <i class="fas fa-info-circle me-1 text-muted"></i> من نحن
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-dark" href="#">
+                  <i class="fas fa-envelope me-1 text-muted"></i> اتصل بنا
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="page-wrapper">
+      <main class="main-content">
+        <div class="container">
+          <!-- Top Ad -->
+          <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-6865939387108271"
+                 data-ad-slot="5546392643"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+
+          <div class="search-container">
+            <h1 class="search-title">محرك بحث تطبيقات الذكاء الاصطناعي - اكتشف أدوات المستقبل </h1>
+            <div class="search-box">
+              <div class="gcse-search"></div>
+            </div>
+
+            <!-- Middle Ad -->
+            <div class="ad-container">
+              <ins class="adsbygoogle"
+                   style="display:block"
+                   data-ad-client="ca-pub-6865939387108271"
+                   data-ad-slot="7314738065"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true"></ins>
+              <script>
+                   (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div>
+
+            <div class="keywords-container" id="keywords-container"></div>
+          </div>
+
+          <!-- Bottom Ad -->
+          <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-6865939387108271"
+                 data-ad-slot="1296156447"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>استكشف</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white">الرئيسية</a></li>
+                        <li><a href="#" class="text-white">البحث</a></li>
+                        <li><a href="#" class="text-white">الملفات الشخصية</a></li>
+                        <li><a href="about.html" class="text-white">من نحن</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>سياسات الموقع</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="privacy.html" class="text-white">سياسة الخصوصية</a></li>
+                        <li><a href="terms.html" class="text-white">الشروط والأحكام</a></li>
+                        <li><a href="faq.html" class="text-white">الأسئلة الشائعة</a></li>
+                        <li><a href="contact.html" class="text-white">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>المجتمع</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">مركز المساعدة</a></li>
+                        <li><a href="#" class="text-white">الدعم الفني</a></li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-2"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h5>تحميل التطبيق</h5>
+                    <div class="app-badges">
+                        <a href="#" class="d-block mb-2">
+                            <img src="app-store-badge.svg" alt="App Store" width="180" class="img-fluid">
+                        </a>
+                        <a href="#">
+                            <img src="google-play-badge.svg" alt="Google Play" width="180" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <p>&copy; 2024 موقع الزواج العربي. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      const searchKeywords = [
+      'تطبيقات الذكاء الاصطناعي لإنشاء الصور', 
+        'أدوات لتحويل النصوص إلى صور وأعمال فنية',
+        'تطبيقات الذكاء الاصطناعي لتحرير الفيديو',
+        'برامج تساعدك في إنشاء فيديوهات احترافية بسهولة',
+        'تطبيقات الذكاء الاصطناعي لكتابة المحتوى',
+        'أدوات كتابة المقالات والنصوص بطريقة إبداعية',
+        'تطبيقات الذكاء الاصطناعي لتحليل البيانات',
+        'أدوات تحليل البيانات لاستخلاص رؤى دقيقة',
+        'تطبيقات الذكاء الاصطناعي لتعلم اللغات',
+        'منصات ذكية لتعلم اللغات بسرعة وفعالية',
+      
+      ];
+
+      // Create keyword buttons
+      window.addEventListener('DOMContentLoaded', () => {
+        const keywordsContainer = document.getElementById('keywords-container');
+        searchKeywords.forEach(keyword => {
+          const button = document.createElement('button');
+          button.className = 'keyword-button';
+          const span = document.createElement('span');
+          span.textContent = keyword;
+          button.appendChild(span);
+          
+          button.addEventListener('click', () => {
+            const searchInput = document.querySelector('.gsc-input-box input');
+            if (searchInput) {
+              searchInput.value = keyword;
+              searchInput.focus();
+              const searchButton = document.querySelector('.gsc-search-button-v2');
+              if (searchButton) {
+                searchButton.click();
+              }
+            }
+          });
+          keywordsContainer.appendChild(button);
+        });
+      });
+
+      // Add scroll behavior for navbar
+      window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 10) {
+          navbar.style.boxShadow = 'var(--shadow-soft)';
+        } else {
+          navbar.style.boxShadow = 'none';
+        }
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', (e) => {
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        
+        if (navbarCollapse.classList.contains('show') && 
+            !navbarCollapse.contains(e.target) && 
+            !navbarToggler.contains(e.target)) {
+          navbarCollapse.classList.remove('show');
+        }
+      });
+    </script>
+  </body>
+</html>
