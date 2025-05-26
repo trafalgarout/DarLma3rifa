@@ -6,7 +6,7 @@
 
 class OpenRouterChat {
     constructor(options = {}) {
-        this.apiKey = options.apiKey || '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'; // OpenRouter API key
+        this.apiKey = options.apiKey || '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'; // OpenRouter API key
         this.model = options.model || 'openai/gpt-3.5-turbo'; // Default model
         this.chatContainer = options.chatContainer || null;
         this.messageInput = options.messageInput || null;
