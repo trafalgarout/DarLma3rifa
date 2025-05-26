@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const ads = [
             // Ad 1 - Header Ad (below navigation)
             `<!-- AI ADS 1 -->
-            <div class="ad-container ad-header my-4">
+            <div class="ad-container ad-header my-4" id="ad-container-1">
                 <div class="text-center">
                     <small class="text-muted d-block mb-1">إعلان</small>
                     <ins class="adsbygoogle"
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Ad 2 - Between Features and AI Comparison sections
             `<!-- AI ADS 2 -->
-            <div class="ad-container ad-section-break my-5">
+            <div class="ad-container ad-section-break my-5" id="ad-container-2">
                 <div class="text-center">
                     <small class="text-muted d-block mb-1">إعلان</small>
                     <ins class="adsbygoogle"
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Ad 3 - Inside the comparison tool (after the table)
             `<!-- AI ADS 3 -->
-            <div class="ad-container ad-in-content my-4">
+            <div class="ad-container ad-in-content my-4" id="ad-container-3">
                 <div class="text-center">
                     <small class="text-muted d-block mb-1">إعلان</small>
                     <ins class="adsbygoogle"
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Ad 4 - Before the CTA section
             `<!-- AI ADS 4 -->
-            <div class="ad-container ad-pre-cta my-5">
+            <div class="ad-container ad-pre-cta my-5" id="ad-container-4">
                 <div class="text-center">
                     <small class="text-muted d-block mb-1">إعلان</small>
                     <ins class="adsbygoogle"
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Ad 5 - Before Footer
             `<!-- AI ADS 5 -->
-            <div class="ad-container ad-pre-footer my-5">
+            <div class="ad-container ad-pre-footer my-5" id="ad-container-5">
                 <div class="text-center">
                     <small class="text-muted d-block mb-1">إعلان</small>
                     <ins class="adsbygoogle"
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Ad 6 - Inside modals (article modals)
             `<!-- AI ADS 6 -->
-            <div class="ad-container ad-in-modal my-4">
+            <div class="ad-container ad-in-modal my-4" id="ad-container-6">
                 <div class="text-center">
                     <small class="text-muted d-block mb-1">إعلان</small>
                     <ins class="adsbygoogle"
@@ -106,6 +106,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Also place ads when modals are opened
         setupModalAdPlacements();
+        
+        // Also add ads to companion cards when displayed
+        placeCompanionCardAds();
     }
     
     /**
@@ -116,18 +119,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const navbar = document.querySelector('nav.navbar');
         if (navbar && ads[0]) {
             insertAdAfterElement(navbar, ads[0]);
+            initializeAd(document.querySelector('#ad-container-1 ins'));
         }
         
         // 2. Place ad between Features and AI Comparison sections (Ad 2)
         const featuresSection = document.querySelector('.features-section');
         if (featuresSection && ads[1]) {
             insertAdAfterElement(featuresSection, ads[1]);
+            initializeAd(document.querySelector('#ad-container-2 ins'));
         }
         
         // 3. Place ad inside the comparison tool (Ad 3)
         const comparisonResults = document.querySelector('.comparison-results');
         if (comparisonResults && ads[2]) {
             insertAdAfterElement(comparisonResults, ads[2]);
+            initializeAd(document.querySelector('#ad-container-3 ins'));
         }
         
         // 4. Place ad before the CTA section (Ad 4)
@@ -136,6 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const ctaSection = document.querySelector('.cta-section');
             if (ctaSection) {
                 insertAdBeforeElement(ctaSection, ads[3]);
+                initializeAd(document.querySelector('#ad-container-4 ins'));
             }
         }
         
@@ -143,10 +150,30 @@ document.addEventListener('DOMContentLoaded', function() {
         const footer = document.querySelector('footer');
         if (footer && ads[4]) {
             insertAdBeforeElement(footer, ads[4]);
+            initializeAd(document.querySelector('#ad-container-5 ins'));
         }
-        
-        // Initialize all ads
-        (adsbygoogle = window.adsbygoogle || []).push({});
+    }
+    
+    /**
+     * Places ads in companion cards
+     */
+    function placeCompanionCardAds() {
+        const companionCards = document.querySelectorAll('.companion-card');
+        if (companionCards.length > 0) {
+            // Add ad after the second companion card if available
+            if (companionCards.length > 1) {
+                const adId1 = 'companion-ad-' + Math.random().toString(36).substring(2, 10);
+                const adHtml1 = ads[1].replace('ad-container-2', adId1);
+                insertAdAfterElement(companionCards[1], adHtml1);
+                initializeAd(document.querySelector('#' + adId1 + ' ins'));
+            }
+            
+            // Add ad after the last companion card
+            const adId2 = 'companion-ad-' + Math.random().toString(36).substring(2, 10);
+            const adHtml2 = ads[4].replace('ad-container-5', adId2);
+            insertAdAfterElement(companionCards[companionCards.length - 1], adHtml2);
+            initializeAd(document.querySelector('#' + adId2 + ' ins'));
+        }
     }
     
     /**
@@ -168,25 +195,37 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         // Place first ad after the second paragraph if available
                         if (paragraphs.length > 2) {
-                            insertAdAfterElement(paragraphs[1], ads[2]);
-                            (adsbygoogle = window.adsbygoogle || []).push({});
+                            // Generate unique ID for this ad
+                            const adId1 = 'modal-ad-' + Math.random().toString(36).substring(2, 10);
+                            const adHtml1 = ads[2].replace('ad-container-3', adId1);
+                            insertAdAfterElement(paragraphs[1], adHtml1);
+                            initializeAd(modal.querySelector('#' + adId1 + ' ins'));
                         }
                         
                         // Place second ad after the fifth paragraph if available
                         if (paragraphs.length > 5) {
-                            insertAdAfterElement(paragraphs[4], ads[5]);
-                            (adsbygoogle = window.adsbygoogle || []).push({});
+                            // Generate unique ID for this ad
+                            const adId2 = 'modal-ad-' + Math.random().toString(36).substring(2, 10);
+                            const adHtml2 = ads[5].replace('ad-container-6', adId2);
+                            insertAdAfterElement(paragraphs[4], adHtml2);
+                            initializeAd(modal.querySelector('#' + adId2 + ' ins'));
                         }
                         
                         // Place third ad before the conclusion if available
                         const conclusion = articleBody.querySelector('.conclusion');
                         if (conclusion) {
-                            insertAdBeforeElement(conclusion, ads[3]);
-                            (adsbygoogle = window.adsbygoogle || []).push({});
+                            // Generate unique ID for this ad
+                            const adId3 = 'modal-ad-' + Math.random().toString(36).substring(2, 10);
+                            const adHtml3 = ads[3].replace('ad-container-4', adId3);
+                            insertAdBeforeElement(conclusion, adHtml3);
+                            initializeAd(modal.querySelector('#' + adId3 + ' ins'));
                         } else if (paragraphs.length > 8) {
                             // If no conclusion section, place before the last paragraph
-                            insertAdBeforeElement(paragraphs[paragraphs.length - 1], ads[3]);
-                            (adsbygoogle = window.adsbygoogle || []).push({});
+                            // Generate unique ID for this ad
+                            const adId3 = 'modal-ad-' + Math.random().toString(36).substring(2, 10);
+                            const adHtml3 = ads[3].replace('ad-container-4', adId3);
+                            insertAdBeforeElement(paragraphs[paragraphs.length - 1], adHtml3);
+                            initializeAd(modal.querySelector('#' + adId3 + ' ins'));
                         }
                     }
                 }
@@ -195,46 +234,49 @@ document.addEventListener('DOMContentLoaded', function() {
                 else {
                     const modalBody = modal.querySelector('.modal-body');
                     if (modalBody) {
-                        // Add ad at the bottom of the modal body
-                        modalBody.insertAdjacentHTML('beforeend', ads[5]);
-                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        // Generate unique ID for this ad
+                        const adId = 'modal-ad-' + Math.random().toString(36).substring(2, 10);
+                        const adHtml = ads[5].replace('ad-container-6', adId);
+                        modalBody.insertAdjacentHTML('beforeend', adHtml);
+                        initializeAd(modal.querySelector('#' + adId + ' ins'));
                     }
                 }
             }
         });
-        
-        // Also add ads to companion cards when displayed
-        const companionCards = document.querySelectorAll('.companion-card');
-        if (companionCards.length > 0) {
-            // Add ad after the second companion card if available
-            if (companionCards.length > 1) {
-                insertAdAfterElement(companionCards[1], ads[1]);
-            }
-            
-            // Add ad after the last companion card
-            insertAdAfterElement(companionCards[companionCards.length - 1], ads[4]);
-        }
     }
     
     /**
      * Helper function to insert ad after an element
      */
     function insertAdAfterElement(element, adHtml) {
-        if (!element) return;
-        
-        const adContainer = document.createElement('div');
-        adContainer.innerHTML = adHtml;
-        element.parentNode.insertBefore(adContainer, element.nextSibling);
+        if (element && element.parentNode) {
+            const adContainer = document.createElement('div');
+            adContainer.innerHTML = adHtml;
+            element.parentNode.insertBefore(adContainer.firstElementChild, element.nextSibling);
+        }
     }
     
     /**
      * Helper function to insert ad before an element
      */
     function insertAdBeforeElement(element, adHtml) {
-        if (!element) return;
-        
-        const adContainer = document.createElement('div');
-        adContainer.innerHTML = adHtml;
-        element.parentNode.insertBefore(adContainer, element);
+        if (element && element.parentNode) {
+            const adContainer = document.createElement('div');
+            adContainer.innerHTML = adHtml;
+            element.parentNode.insertBefore(adContainer.firstElementChild, element);
+        }
+    }
+    
+    /**
+     * Helper function to initialize an ad
+     */
+    function initializeAd(adElement) {
+        if (adElement && window.adsbygoogle) {
+            try {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (e) {
+                console.error('Error initializing ad:', e);
+            }
+        }
     }
 });
