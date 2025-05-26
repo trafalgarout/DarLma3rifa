@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل تكامل OpenRouter | دار المعرفة</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        pre {
+            direction: ltr;
+            text-align: left;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+        }
+        
+        .implementation-steps {
+            counter-reset: step-counter;
+            list-style-type: none;
+            padding-right: 0;
+        }
+        
+        .implementation-steps li {
+            position: relative;
+            padding-right: 35px;
+            margin-bottom: 20px;
+        }
+        
+        .implementation-steps li:before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: #6c63ff;
+            color: white;
+            text-align: center;
+            line-height: 25px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5 pt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card shadow-sm">
+                    <div class="card-body p-5">
+                        <h1 class="text-center mb-4">دليل تكامل OpenRouter مع دار المعرفة</h1>
+                        
+                        <div class="alert alert-primary">
+                            <i class="fas fa-info-circle me-2"></i>
+                            هذا الدليل يشرح كيفية استبدال الدردشة التجريبية بدردشة حقيقية مدعومة بواسطة OpenRouter.
+                        </div>
+                        
+                        <h2 class="mt-5 mb-3">ما هو OpenRouter؟</h2>
+                        <p>OpenRouter هي خدمة تتيح لك الوصول إلى مجموعة متنوعة من نماذج الذكاء الاصطناعي من خلال واجهة برمجة تطبيقات (API) موحدة. تقدم OpenRouter خطة مجانية تتيح لك استخدام بعض النماذج مثل Deepseek بدون تكلفة.</p>
+                        
+                        <h2 class="mt-5 mb-3">المتطلبات الأساسية</h2>
+                        <ol>
+                            <li>حساب على <a href="https://openrouter.ai" target="_blank">OpenRouter</a></li>
+                            <li>مفتاح API من لوحة تحكم OpenRouter</li>
+                            <li>ملفات JavaScript التي قمنا بإنشائها:
+                                <ul>
+                                    <li><code>openrouter-chat.js</code> - تنفيذ الدردشة</li>
+                                    <li><code>chatbot-config.js</code> - إعدادات الرفقاء المختلفين</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        
+                        <h2 class="mt-5 mb-3">خطوات التنفيذ</h2>
+                        <ol class="implementation-steps">
+                            <li>
+                                <h4>إنشاء حساب في OpenRouter</h4>
+                                <p>قم بزيارة <a href="https://openrouter.ai" target="_blank">OpenRouter.ai</a> وإنشاء حساب جديد. بعد التسجيل، انتقل إلى لوحة التحكم للحصول على مفتاح API الخاص بك.</p>
+                            </li>
+                            
+                            <li>
+                                <h4>إضافة ملفات JavaScript إلى صفحات الرفقاء</h4>
+                                <p>قم بإضافة الأسطر التالية قبل نهاية وسم <code>&lt;/body&gt;</code> في كل صفحة من صفحات الرفقاء:</p>
+                                <pre><code>&lt;!-- OpenRouter Chatbot Integration --&gt;
+&lt;script src="js/openrouter-chat.js"&gt;&lt;/script&gt;
+&lt;script src="js/chatbot-config.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    // استبدل 'YOUR_OPENROUTER_API_KEY' بمفتاح API الخاص بك
+    const openRouterApiKey = 'YOUR_OPENROUTER_API_KEY';
+    
+    // تهيئة الدردشة
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeOpenRouterChatbot(openRouterApiKey);
+    });
+&lt;/script&gt;</code></pre>
+                            </li>
+                            
+                            <li>
+                                <h4>تخصيص إعدادات الرفقاء (اختياري)</h4>
+                                <p>يمكنك تخصيص إعدادات كل رفيق في ملف <code>chatbot-config.js</code>. لقد قمنا بالفعل بإعداد التكوينات الأساسية لجميع الرفقاء.</p>
+                            </li>
+                            
+                            <li>
+                                <h4>اختيار نموذج الذكاء الاصطناعي</h4>
+                                <p>يمكنك اختيار نموذج مختلف من OpenRouter عن طريق تعديل خاصية <code>model</code> في ملف <code>openrouter-chat.js</code>. النموذج الافتراضي هو <code>deepseek/deepseek-coder</code> الذي يقدم رصيداً مجانياً.</p>
+                                <p>بعض النماذج المجانية الأخرى التي يمكنك تجربتها:</p>
+                                <ul>
+                                    <li><code>anthropic/claude-instant-1</code></li>
+                                    <li><code>google/gemini-pro</code></li>
+                                    <li><code>mistralai/mistral-7b-instruct</code></li>
+                                </ul>
+                                <p>يمكنك الاطلاع على قائمة كاملة بالنماذج المتاحة في <a href="https://openrouter.ai/docs" target="_blank">توثيق OpenRouter</a>.</p>
+                            </li>
+                            
+                            <li>
+                                <h4>اختبار التكامل</h4>
+                                <p>بعد إضافة الكود إلى صفحات الرفقاء، قم بزيارة إحدى الصفحات واختبار الدردشة للتأكد من أنها تعمل بشكل صحيح.</p>
+                            </li>
+                        </ol>
+                        
+                        <h2 class="mt-5 mb-3">مثال على التنفيذ</h2>
+                        <p>لقد قمنا بإنشاء مثال على التنفيذ في صفحة <code>business-thinker.html</code>. يمكنك استخدام هذه الصفحة كمرجع لتنفيذ التكامل في الصفحات الأخرى.</p>
+                        
+                        <div class="alert alert-warning mt-4">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <strong>ملاحظة مهمة:</strong> لا تقم بمشاركة مفتاح API الخاص بك علناً أو تضمينه في الكود المصدري المنشور. في بيئة الإنتاج، يجب تخزين مفتاح API في متغير بيئة أو خدمة آمنة.
+                        </div>
+                        
+                        <h2 class="mt-5 mb-3">حدود الاستخدام المجاني</h2>
+                        <p>تقدم OpenRouter حدوداً للاستخدام المجاني تختلف حسب النموذج المستخدم. تأكد من مراجعة <a href="https://openrouter.ai/pricing" target="_blank">صفحة التسعير</a> للحصول على أحدث المعلومات حول الحدود المجانية.</p>
+                        
+                        <h2 class="mt-5 mb-3">الدعم والمساعدة</h2>
+                        <p>إذا واجهت أي مشاكل أثناء تنفيذ التكامل، يمكنك الرجوع إلى:</p>
+                        <ul>
+                            <li><a href="https://openrouter.ai/docs" target="_blank">توثيق OpenRouter</a></li>
+                            <li><a href="https://github.com/openrouter-ai" target="_blank">مستودع GitHub الخاص بـ OpenRouter</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4 mb-5">
+                    <a href="index.html" class="btn btn-primary">العودة إلى الصفحة الرئيسية</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

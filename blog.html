@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="مدونة دار المعرفة - مقالات عن الذكاء الاصطناعي والصحة النفسية والإنتاجية">
+    <title>المدونة - دار المعرفة</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        /* Blog Section Styles */
+        .blog-section {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .blog-card {
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            border: none;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .blog-card .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .blog-card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+        
+        .blog-card .card-body {
+            padding: 1.5rem;
+        }
+        
+        .blog-card .card-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        
+        .blog-card .card-text {
+            color: #6c757d;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .article-meta {
+            font-size: 0.9rem;
+            color: #8e97a1;
+        }
+        
+        .article-meta i {
+            margin-left: 5px;
+        }
+        
+        /* Modal Styles */
+        .modal-content {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+        }
+        
+        .modal-body {
+            padding: 0;
+        }
+        
+        .article-content {
+            padding: 2rem;
+        }
+        
+        .article-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .article-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <span class="logo-text">Darlma3rifa</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">الرئيسية</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                رفقاء الذكاء الاصطناعي
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="fitness-coach.html">رفيق اللياقة</a></li>
+                                <li><a class="dropdown-item" href="mental-wellness.html">الصديق النفسي</a></li>
+                                <li><a class="dropdown-item" href="language-assistant.html">مساعد اللغة</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">من نحن</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="blog.html">المدونة</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">اتصل بنا</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <div class="page-header mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1 class="display-4">المدونة</h1>
+                    <p class="lead">اكتشف أحدث المقالات والرؤى حول الذكاء الاصطناعي والتطور الشخصي</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Section -->
+    <section class="blog-section">
+        <div class="container">
+            <div class="row">
+                <!-- AI Mental Health Article -->
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up">
+                    <article class="card blog-card h-100 border-0 rounded-lg shadow-sm">
+                        <div class="position-relative overflow-hidden">
+                            <div class="card-img-overlay d-flex align-items-end p-3 text-white" style="background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);">
+                                <div class="w-100">
+                                    <span class="badge bg-primary mb-2">الصحة النفسية</span>
+                                </div>
+                            </div>
+                            <img src="images/blog/ai-mental-health.jpg" class="card-img-top" alt="الذكاء الاصطناعي والصحة النفسية">
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="article-meta mb-2">
+                                <span class="text-muted"><i class="far fa-calendar-alt"></i> 24 مايو 2025</span>
+                            </div>
+                            <h3 class="card-title h5">
+                                <a href="javascript:void(0)" class="text-decoration-none text-dark" onclick="showArticle('ai-mental-health')">
+                                    كيف يساعدك الذكاء الاصطناعي في تحسين صحتك النفسية وزيادة الإنتاجية
+                                </a>
+                            </h3>
+                            <p class="card-text">اكتشف كيف يمكن للذكاء الاصطناعي أن يكون رفيقاً داعماً لصحتك النفسية ومحفزاً لإنتاجيتك اليومية</p>
+                        </div>
+                        <div class="card-footer bg-white border-0 p-4 pt-0">
+                            <button class="btn btn-outline-primary w-100" onclick="showArticle('ai-mental-health')">اقرأ المزيد</button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <div class="modal fade" id="articleModal" tabindex="-1" aria-labelledby="articleModalLabel" aria-hidden="true" data-bs-backdrop="true">
+        <style>
+            .modal.fade .modal-dialog {
+                transform: scale(0.95);
+                transition: transform 0.3s ease-out;
+            }
+            
+            .modal.show .modal-dialog {
+                transform: scale(1);
+            }
+            
+            .modal-content {
+                opacity: 0;
+                transform: translateY(-20px);
+                transition: all 0.3s ease-out;
+            }
+            
+            .modal.show .modal-content {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        </style>
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="articleContent">
+                    <!-- Article content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light mt-5 py-4">
+        <div class="container text-center">
+            <p>جميع الحقوق محفوظة © 2025 دار المعرفة</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            offset: 100,
+            once: true
+        });
+        
+        async function showArticle(articleId) {
+            document.getElementById('articleContent').innerHTML = '<div class="text-center p-5"><div class="spinner-border text-primary" role="status"></div></div>';
+            const modal = new bootstrap.Modal(document.getElementById('articleModal'));
+            modal.show();
+            
+            try {
+                const response = await fetch(`articles/${articleId}.html`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const content = await response.text();
+                document.getElementById('articleContent').innerHTML = content;
+            } catch (error) {
+                console.error('Error loading article:', error);
+                document.getElementById('articleContent').innerHTML = `
+                    <div class="alert alert-danger m-5" role="alert">
+                        عذراً، حدث خطأ أثناء تحميل المقال. يرجى المحاولة مرة أخرى.
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

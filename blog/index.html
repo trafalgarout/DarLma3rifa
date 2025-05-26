@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="مدونة دار المعرفة - مقالات عن الذكاء الاصطناعي والصحة النفسية والإنتاجية">
+    <title>المدونة - دار المعرفة</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+        }
+        .blog-card {
+            transition: transform 0.3s ease;
+            margin-bottom: 30px;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+        .blog-thumbnail {
+            height: 200px;
+            object-fit: cover;
+        }
+        .blog-title {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        .blog-excerpt {
+            color: #666;
+        }
+        .blog-date {
+            color: #95a5a6;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">
+                    <span class="logo-text">Darlma3rifa</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">الرئيسية</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.html">المدونة</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Blog Section -->
+    <main class="container mt-5 pt-5">
+        <h1 class="text-center mb-5">المدونة</h1>
+        
+        <div class="row">
+            <!-- Article Card -->
+            <div class="col-md-4">
+                <article class="card blog-card">
+                    <img src="../images/ai-mental-health.jpg" class="card-img-top blog-thumbnail" alt="الذكاء الاصطناعي والصحة النفسية">
+                    <div class="card-body">
+                        <span class="blog-date">24 مايو 2025</span>
+                        <h2 class="card-title blog-title h5">
+                            <a href="ai-mental-health.html" class="text-decoration-none">
+                                كيف يساعدك الذكاء الاصطناعي في تحسين صحتك النفسية وزيادة الإنتاجية
+                            </a>
+                        </h2>
+                        <p class="card-text blog-excerpt">
+                            اكتشف كيف يمكن للذكاء الاصطناعي أن يكون رفيقاً داعماً لصحتك النفسية ومحفزاً لإنتاجيتك اليومية
+                        </p>
+                        <a href="ai-mental-health.html" class="btn btn-outline-primary">اقرأ المزيد</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-light mt-5 py-4">
+        <div class="container text-center">
+            <p>جميع الحقوق محفوظة © 2025 دار المعرفة</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
