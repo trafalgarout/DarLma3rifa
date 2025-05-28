@@ -348,6 +348,18 @@
             color: #555;
         }
     </style>
+    <pre><code>&lt;!-- OpenRouter Chatbot Integration --&gt;
+&lt;script src="js/openrouter-chat.js"&gt;&lt;/script&gt;
+&lt;script src="js/chatbot-config.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    // استبدل 'YOUR_OPENROUTER_API_KEY' بمفتاح API الخاص بك
+    const openRouterApiKey = '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';
+    
+    // تهيئة الدردشة
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeOpenRouterChatbot(openRouterApiKey);
+    });
+&lt;/script&gt;</code></pre>
 </body>
 </html>
 
